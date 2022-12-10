@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
       var res = await http.get(sUrl);
       if (res.statusCode == 200) {
         var response = json.decode(res.body);
-        
+
         if (response['response_status'] == "OK") {
           prefs.setBool('login', true);
           prefs.setString('username', response['data'][0]['username']);
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
             prefs.setString('alamat', response['data'][0]['alamat']);
             prefs.setString('kota', response['data'][0]['kota']);
             prefs.setString('telp', response['data'][0]['telp']);
-            
+
             if (widget.nav == "") {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/landingusers', (Route<dynamic> route) => false);
@@ -255,7 +255,7 @@ class _LoginState extends State<Login> {
                 height: 60.0,
                 child: Material(
                   borderRadius: BorderRadius.circular(10.0),
-                  shadowColor: Colors.blue[800],
+                  shadowColor: Colors.red[800],
                   color: Palette.menuNiaga,
                   elevation: 7.0,
                   child: const Center(

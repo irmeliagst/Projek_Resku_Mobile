@@ -337,7 +337,7 @@ class _FormProdukPageState extends State<FormProdukPage> {
                         height: 60.0,
                         child: Material(
                           borderRadius: BorderRadius.circular(10.0),
-                          shadowColor: Colors.blue[800],
+                          shadowColor: Color.fromARGB(255, 192, 21, 21),
                           color: Palette.menuNiaga,
                           elevation: 7.0,
                           child: const Center(

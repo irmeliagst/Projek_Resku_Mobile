@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'TOKO ONLINE',
+      title: 'Reskuu',
       theme: ThemeData(
         fontFamily: 'NeoSans',
         primaryColor: Palette.grey,
@@ -33,14 +33,18 @@ class MyApp extends StatelessWidget {
         '/signup': (BuildContext context) => const SignupPage(),
         '/forgot': (BuildContext context) => const ForgotPage(),
         '/landingadmin': (BuildContext context) => const admin.LandingPage(''),
-        '/landingcabang': (BuildContext context) => const cabang.LandingPage(''),
+        '/landingcabang': (BuildContext context) =>
+            const cabang.LandingPage(''),
         '/landingusers': (BuildContext context) => const users.LandingPage(''),
         '/favusers': (BuildContext context) => const users.LandingPage('1'),
-        '/keranjangusers': (BuildContext context) => const users.LandingPage('2'),
+        '/keranjangusers': (BuildContext context) =>
+            const users.LandingPage('2'),
         '/transaksi': (BuildContext context) => const users.LandingPage('3'),
         '/promocabang': (BuildContext context) => const cabang.LandingPage('1'),
-        '/transaksicabang': (BuildContext context) => const cabang.LandingPage('2'),
-        '/transaksiadmin': (BuildContext context) => const admin.LandingPage('1'),
+        '/transaksicabang': (BuildContext context) =>
+            const cabang.LandingPage('2'),
+        '/transaksiadmin': (BuildContext context) =>
+            const admin.LandingPage('1'),
         //'/terimaksih': (BuildContext context) => const Terimakasih(),
       },
     );

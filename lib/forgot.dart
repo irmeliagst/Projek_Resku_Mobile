@@ -141,11 +141,11 @@ class _ForgotPageState extends State<ForgotPage> {
                 "email": emailController.text.trim(),
               }),
               // ignore: avoid_unnecessary_containers
-              child:  SizedBox(
+              child: SizedBox(
                 height: 60.0,
                 child: Material(
                   borderRadius: BorderRadius.circular(10.0),
-                  shadowColor: Colors.blue[800],
+                  shadowColor: Colors.red,
                   color: Palette.menuNiaga,
                   elevation: 7.0,
                   child: const Center(

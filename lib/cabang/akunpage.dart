@@ -275,7 +275,7 @@ class _AkunPageState extends State<AkunPage> {
                         margin: const EdgeInsets.only(top: 10),
                         child: Material(
                           borderRadius: BorderRadius.circular(5.0),
-                          shadowColor: Colors.blue[800],
+                          shadowColor: Colors.red,
                           color: Palette.menuNiaga,
                           elevation: 7.0,
                           child: const Center(
@@ -634,7 +634,7 @@ class _AkunPageState extends State<AkunPage> {
                       height: 60.0,
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        shadowColor: Colors.blue[800],
+                        shadowColor: Colors.red,
                         color: Palette.menuNiaga,
                         elevation: 7.0,
                         child: const Center(

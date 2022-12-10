@@ -44,7 +44,9 @@ class _AkunPageState extends State<AkunPage> {
           }
         }
       });
-    } catch (e) {return null;}
+    } catch (e) {
+      return null;
+    }
   }
 
   cekLogout() async {
@@ -225,7 +227,7 @@ class _AkunPageState extends State<AkunPage> {
                         height: 50.0,
                         child: Material(
                           borderRadius: BorderRadius.circular(5.0),
-                          shadowColor: Colors.blue[800],
+                          shadowColor: Color.fromARGB(255, 192, 21, 21),
                           color: Palette.menuNiaga,
                           elevation: 7.0,
                           child: const Center(
@@ -259,7 +261,7 @@ class _AkunPageState extends State<AkunPage> {
                         margin: const EdgeInsets.only(top: 10),
                         child: Material(
                           borderRadius: BorderRadius.circular(5.0),
-                          shadowColor: Colors.blue[800],
+                          shadowColor: Color.fromARGB(255, 192, 21, 21),
                           color: Palette.menuNiaga,
                           elevation: 7.0,
                           child: const Center(
@@ -482,7 +484,7 @@ class _AkunPageState extends State<AkunPage> {
                       height: 60.0,
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        shadowColor: Colors.blue[800],
+                        shadowColor: Color.fromARGB(255, 192, 21, 21),
                         color: Palette.menuNiaga,
                         elevation: 7.0,
                         child: const Center(

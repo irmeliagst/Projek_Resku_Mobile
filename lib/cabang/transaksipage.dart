@@ -10,7 +10,6 @@ import '../models/transaksidetail.dart';
 
 // ignore: use_key_in_widget_constructors
 class TransaksiPage extends StatefulWidget {
-
   @override
   _TransaksiPageState createState() => _TransaksiPageState();
 }
@@ -39,7 +38,6 @@ class _TransaksiPageState extends State<TransaksiPage> {
     cekLogin();
   }
 
-
   cekLogin() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -50,7 +48,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
   }
 
   Future<List<Transaksi>> fetchTransaksi() async {
-    List<Transaksi> usersList=[];
+    List<Transaksi> usersList = [];
     var params = "/transaksibycabang?userid=" + userid;
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
@@ -63,13 +61,13 @@ class _TransaksiPageState extends State<TransaksiPage> {
           return Transaksi.fromJson(json);
         }).toList();
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     return usersList;
   }
 
   Future<List<Transaksidetail>> fetchTransaksiDetail(String nota) async {
-    List<Transaksidetail> usersList=[];
+    List<Transaksidetail> usersList = [];
     var params = "/transaksibynota?nota=" + nota;
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
@@ -82,7 +80,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           return Transaksidetail.fromJson(json);
         }).toList();
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     return usersList;
   }
@@ -101,7 +99,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           }
         }
       });
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -122,7 +120,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           }
         }
       });
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -214,7 +212,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 color: snapshot.data![i].st == "1"
                     ? Colors.white
                     : Colors.yellow[50],
-                boxShadow:const  [
+                boxShadow: const [
                   BoxShadow(color: Colors.white, spreadRadius: 1),
                 ],
               ),
@@ -245,14 +243,14 @@ class _TransaksiPageState extends State<TransaksiPage> {
                                   left: 5, right: 5, top: 2, bottom: 2),
                               decoration: BoxDecoration(
                                 color: snapshot.data![i].flag == "proses"
-                                    ? Colors.blue
+                                    ? Colors.red
                                     : snapshot.data![i].flag == "di antar"
                                         ? Colors.teal
                                         : snapshot.data![i].flag == "selesai"
                                             ? Colors.green
                                             : snapshot.data![i].flag == "cancel"
                                                 ? Colors.red
-                                                : Colors.blue,
+                                                : Colors.red,
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               child: Row(
@@ -316,8 +314,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
         ),
         child: ListTile(
           dense: true,
-          contentPadding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+          contentPadding: const EdgeInsets.only(
+              left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
           title: Stack(
             children: [
               Text(nama +
@@ -337,14 +335,14 @@ class _TransaksiPageState extends State<TransaksiPage> {
                             left: 5, right: 5, top: 2, bottom: 2),
                         decoration: BoxDecoration(
                           color: flag == "proses"
-                              ? Colors.blue
+                              ? Colors.red
                               : flag == "di antar"
                                   ? Colors.teal
                                   : flag == "selesai"
                                       ? Colors.green
                                       : flag == "cancel"
                                           ? Colors.red
-                                          : Colors.blue,
+                                          : Colors.red,
                           borderRadius: BorderRadius.circular(2),
                         ),
                         child: Row(
@@ -389,8 +387,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
         ),
         child: ListTile(
             dense: true,
-            contentPadding:
-                const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+            contentPadding: const EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -404,12 +402,12 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       child: Row(
                         children: <Widget>[
                           const Icon(Icons.phone),
-                            Text(
-                              ' ' + telp,
-                              style: _width <= 360
-                                  ? TextStyle(fontSize: fontkecil)
-                                  : TextStyle(fontSize: fontnormal),
-                            ),
+                          Text(
+                            ' ' + telp,
+                            style: _width <= 360
+                                ? TextStyle(fontSize: fontkecil)
+                                : TextStyle(fontSize: fontnormal),
+                          ),
                         ],
                       ),
                     ),
@@ -433,12 +431,12 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       child: Row(
                         children: <Widget>[
                           const Icon(Icons.email),
-                            Text(
-                              ' ' + email,
-                              style: _width <= 360
-                                  ? TextStyle(fontSize: fontkecil)
-                                  : TextStyle(fontSize: fontnormal),
-                            ),
+                          Text(
+                            ' ' + email,
+                            style: _width <= 360
+                                ? TextStyle(fontSize: fontkecil)
+                                : TextStyle(fontSize: fontnormal),
+                          ),
                         ],
                       ),
                     ),
@@ -456,14 +454,14 @@ class _TransaksiPageState extends State<TransaksiPage> {
             ),
           ),
           color: Colors.white,
-          boxShadow:const  [
+          boxShadow: const [
             BoxShadow(color: Colors.white, spreadRadius: 1),
           ],
         ),
         child: ListTile(
             dense: true,
-            contentPadding:
-                const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+            contentPadding: const EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -471,9 +469,9 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin:const  EdgeInsets.only(right: 10),
-                      padding:
-                          const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                      margin: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 5, bottom: 5),
                       decoration: BoxDecoration(
                         color: Colors.grey[700],
                         borderRadius: BorderRadius.circular(5),
@@ -490,7 +488,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                               color: Colors.white,
                             ),
                             Text(
-                              _width <= 360 ? 'di cancel' :'klik cancel',
+                              _width <= 360 ? 'di cancel' : 'klik cancel',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -507,8 +505,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(right: 10),
-                      padding:
-                          const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 5, bottom: 5),
                       decoration: BoxDecoration(
                         color: Colors.grey[700],
                         borderRadius: BorderRadius.circular(5),
@@ -525,7 +523,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                               color: Colors.white,
                             ),
                             Text(
-                              _width <= 360 ? 'proses' :'klik proses',
+                              _width <= 360 ? 'proses' : 'klik proses',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -542,8 +540,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(right: 10),
-                      padding:
-                          const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 5, bottom: 5),
                       decoration: BoxDecoration(
                         color: Colors.grey[700],
                         borderRadius: BorderRadius.circular(5),
@@ -560,7 +558,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                               color: Colors.white,
                             ),
                             Text(
-                              _width <= 360 ? 'di antar' :'klik di antar',
+                              _width <= 360 ? 'di antar' : 'klik di antar',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -577,7 +575,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(right: 10),
-                      padding:const  EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         color: Colors.grey[700],
                         borderRadius: BorderRadius.circular(5),
@@ -594,7 +592,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                               color: Colors.white,
                             ),
                             Text(
-                              _width <= 360 ? 'di selesai' :'klik selesai',
+                              _width <= 360 ? 'di selesai' : 'klik selesai',
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -613,15 +611,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
         child: FutureBuilder<List<Transaksidetail>>(
           future: transaksidetaillist,
           builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Center(
-            child: Column(
-              children: const [
-                CircularProgressIndicator(),
-              ],
-            ),
-          );
-        }
+            if (!snapshot.hasData) {
+              return Center(
+                child: Column(
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            }
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, i) {
@@ -634,7 +632,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       ),
                     ),
                     color: Colors.white,
-                    boxShadow:const  [
+                    boxShadow: const [
                       BoxShadow(color: Colors.white, spreadRadius: 1),
                     ],
                   ),
@@ -644,7 +642,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                         left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
                     leading: AspectRatio(
                       aspectRatio: 1 / 1,
-                      child:  Image.network(
+                      child: Image.network(
                           Palette.sUrl + snapshot.data![i].thumbnail,
                           fit: BoxFit.fill),
                     ),

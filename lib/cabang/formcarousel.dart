@@ -10,13 +10,13 @@ import '../constans.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 
-
 class FormCarousel extends StatefulWidget {
   final Widget? child;
   final int id;
   final String namaproduk;
 
-  const FormCarousel(this.id, this.namaproduk,{Key? key, this.child}) : super(key: key);
+  const FormCarousel(this.id, this.namaproduk, {Key? key, this.child})
+      : super(key: key);
 
   @override
   _FormCarouselState createState() => _FormCarouselState();
@@ -32,7 +32,7 @@ class _FormCarouselState extends State<FormCarousel> {
     super.initState();
   }
 
-  Future _imgFromCamera() async {    
+  Future _imgFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
@@ -69,8 +69,7 @@ class _FormCarouselState extends State<FormCarousel> {
     loadingProses(context);
     var params = "/tambahcarouselbyid";
     try {
-      var stream =
-           http.ByteStream(DelegatingStream.typed(_image!.openRead()));
+      var stream = http.ByteStream(DelegatingStream.typed(_image!.openRead()));
       //var stream = new http.ByteStream(_image.openRead()).cast();
       var length = await _image!.length();
       var uri = Uri.parse(Palette.sUrl + params);
@@ -79,7 +78,7 @@ class _FormCarouselState extends State<FormCarousel> {
       request.fields["idproduk"] = widget.id.toString();
       request.fields["judul"] = txtjudul.text.trim();
 
-      var multipartFile =  http.MultipartFile('image_file', stream, length,
+      var multipartFile = http.MultipartFile('image_file', stream, length,
           filename: basename(_image!.path));
 
       request.files.add(multipartFile);
@@ -89,7 +88,7 @@ class _FormCarouselState extends State<FormCarousel> {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -120,10 +119,10 @@ class _FormCarouselState extends State<FormCarousel> {
                   Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     width: MediaQuery.of(context).size.width,
-                    child:  Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                         Text(
+                        Text(
                           widget.namaproduk,
                           style: const TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 16),
@@ -137,7 +136,7 @@ class _FormCarouselState extends State<FormCarousel> {
                   Container(
                     margin: const EdgeInsets.only(bottom: 10, right: 10),
                     width: MediaQuery.of(context).size.width,
-                    child:  Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text(
@@ -157,11 +156,11 @@ class _FormCarouselState extends State<FormCarousel> {
                           decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(
                                   top: 10, left: 12.0, bottom: 10),
-                              border:  OutlineInputBorder(
-                                borderRadius:  BorderRadius.all(
-                                   Radius.circular(5.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0),
                                 ),
-                                borderSide:  BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.black,
                                   width: 1.0,
                                 ),
@@ -181,7 +180,7 @@ class _FormCarouselState extends State<FormCarousel> {
                   Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     width: MediaQuery.of(context).size.width,
-                    child:  Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text(
@@ -192,14 +191,14 @@ class _FormCarouselState extends State<FormCarousel> {
                         const SizedBox(
                           height: 5,
                         ),
-    // ignore: avoid_unnecessary_containers
+                        // ignore: avoid_unnecessary_containers
                         Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                margin:
-                                    const EdgeInsets.only(bottom: 10, right: 10.0),
+                                margin: const EdgeInsets.only(
+                                    bottom: 10, right: 10.0),
                                 height: 140.0,
                                 width: MediaQuery.of(context).size.width,
                                 child: _image == null
@@ -214,11 +213,12 @@ class _FormCarouselState extends State<FormCarousel> {
                                     child: Container(
                                       width: 60.0,
                                       height: 40.0,
-                                      margin: const EdgeInsets.only(right: 10.0),
+                                      margin:
+                                          const EdgeInsets.only(right: 10.0),
                                       child: const Icon(Icons.add_a_photo,
-                                          color: Colors.blue),
+                                          color: Colors.red),
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.blue),
+                                        border: Border.all(color: Colors.red),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(5.0) //
                                             ),
@@ -230,11 +230,12 @@ class _FormCarouselState extends State<FormCarousel> {
                                     child: Container(
                                       width: 60.0,
                                       height: 40.0,
-                                      margin: const EdgeInsets.only(right: 10.0),
-                                      child:
-                                          const Icon(Icons.image, color: Colors.blue),
+                                      margin:
+                                          const EdgeInsets.only(right: 10.0),
+                                      child: const Icon(Icons.image,
+                                          color: Colors.blue),
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.blue),
+                                        border: Border.all(color: Colors.red),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(5.0) //
                                             ),
@@ -257,7 +258,7 @@ class _FormCarouselState extends State<FormCarousel> {
                       margin: const EdgeInsets.only(left: 5, right: 10),
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
-                        shadowColor: Colors.blue[800],
+                        shadowColor: Colors.red,
                         color: Palette.menuNiaga,
                         elevation: 7.0,
                         child: const Center(

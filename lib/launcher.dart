@@ -68,7 +68,7 @@ class _LauncherPageState extends State<LauncherPage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Palette.bg1,
+      statusBarColor: Palette.abang,
     ));
     return Scaffold(
       body: Container(
@@ -86,7 +86,7 @@ class _LauncherPageState extends State<LauncherPage> {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Palette.bg1, Palette.bg2])),
+                colors: [Palette.abang, Palette.abang])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,8 +94,8 @@ class _LauncherPageState extends State<LauncherPage> {
             Center(
               child: Image.asset(
                 "assets/logo.png",
-                height: 100.0,
-                width: 280.0,
+                height: 300.0,
+                width: 380.0,
               ),
             ),
           ],

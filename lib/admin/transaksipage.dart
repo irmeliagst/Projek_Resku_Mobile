@@ -193,14 +193,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
                                   left: 5, right: 5, top: 2, bottom: 2),
                               decoration: BoxDecoration(
                                 color: snapshot.data![i].flag == "proses"
-                                    ? Colors.blue
+                                    ? Color.fromARGB(255, 243, 33, 33)
                                     : snapshot.data![i].flag == "di antar"
                                         ? Colors.teal
                                         : snapshot.data![i].flag == "selesai"
                                             ? Colors.green
                                             : snapshot.data![i].flag == "cancel"
                                                 ? Colors.red
-                                                : Colors.blue,
+                                                : Color.fromARGB(
+                                                    255, 243, 33, 33),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               child: Row(
@@ -266,8 +267,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
         ),
         child: ListTile(
           dense: true,
-          contentPadding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+          contentPadding: const EdgeInsets.only(
+              left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
           title: Stack(
             children: [
               Text('Nota : ' +
@@ -286,14 +287,14 @@ class _TransaksiPageState extends State<TransaksiPage> {
                             left: 5, right: 5, top: 2, bottom: 2),
                         decoration: BoxDecoration(
                           color: flag == "proses"
-                              ? Colors.blue
+                              ? Colors.red
                               : flag == "di antar"
                                   ? Colors.teal
                                   : flag == "selesai"
                                       ? Colors.green
                                       : flag == "cancel"
                                           ? Colors.red
-                                          : Colors.blue,
+                                          : Colors.red,
                           borderRadius: BorderRadius.circular(2),
                         ),
                         child: Row(
@@ -489,15 +490,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
         child: FutureBuilder<List<Transaksidetail>>(
           future: transaksidetaillist,
           builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: Column(
-                    children: const [
-                      CircularProgressIndicator(),
-                    ],
-                  ),
-                );
-              }
+            if (!snapshot.hasData) {
+              return Center(
+                child: Column(
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            }
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, i) {

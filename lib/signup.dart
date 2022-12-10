@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'constans.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({ Key? key }) : super(key: key);
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -23,7 +23,6 @@ class _SignupPageState extends State<SignupPage> {
   bool visible = false;
   String token = '';
 
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +33,6 @@ class _SignupPageState extends State<SignupPage> {
     final prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token') ?? "";
   }
-
 
   Future<dynamic> _postData(BuildContext context, Map data) async {
     if (emailController.text.trim() == "") {
@@ -61,7 +59,9 @@ class _SignupPageState extends State<SignupPage> {
             _showDialog(context, res[1], 'Err');
           }
         });
-      } catch (e) {return null;}
+      } catch (e) {
+        return null;
+      }
     }
   }
 
@@ -128,9 +128,9 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-  
+
   Widget _header() {
-                // ignore: avoid_unnecessary_containers
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: Stack(
         children: <Widget>[
@@ -151,7 +151,8 @@ class _SignupPageState extends State<SignupPage> {
           Container(
             padding: const EdgeInsets.fromLTRB(16.0, 160.0, 0.0, 0.0),
             child: const Text('Silahkan Isi Data Berikut :',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal)),
+                style:
+                    TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal)),
           ),
         ],
       ),
@@ -242,12 +243,12 @@ class _SignupPageState extends State<SignupPage> {
                 "telp": telpController.text.trim(),
                 "token": token
               }),
-                // ignore: avoid_unnecessary_containers
+              // ignore: avoid_unnecessary_containers
               child: SizedBox(
                 height: 60.0,
                 child: Material(
                   borderRadius: BorderRadius.circular(10.0),
-                  shadowColor: Colors.blue[800],
+                  shadowColor: Colors.red,
                   color: Palette.menuNiaga,
                   elevation: 7.0,
                   child: const Center(
@@ -266,5 +267,4 @@ class _SignupPageState extends State<SignupPage> {
           ],
         ));
   }
-
 }

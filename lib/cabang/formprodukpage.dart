@@ -434,11 +434,11 @@ class _WidgetbyKategoriState extends State<WidgetbyKategori> {
                                       style: TextStyle(color: Colors.white)),
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.red,
                                   borderRadius: BorderRadius.circular(5),
                                   boxShadow: const [
                                     BoxShadow(
-                                        color: Colors.blue, spreadRadius: 1),
+                                        color: Colors.red, spreadRadius: 1),
                                   ],
                                 ),
                               ),

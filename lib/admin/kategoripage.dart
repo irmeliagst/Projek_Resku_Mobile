@@ -35,11 +35,11 @@ class _KategoriPageState extends State<KategoriPage> {
   }
 
   Future<List<Kategori>> fetchKategori() async {
-    List<Kategori> usersList=[];
+    List<Kategori> usersList = [];
     var params = "/kategori";
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
-      var jsonResponse = await http.get(sUrl );
+      var jsonResponse = await http.get(sUrl);
       if (jsonResponse.statusCode == 200) {
         // dbHelper.deletekategori();
         final jsonItems =
@@ -76,11 +76,11 @@ class _KategoriPageState extends State<KategoriPage> {
   }
 
   Future<List<Subkategori>> fetchSubKategori(String idkategori) async {
-    List<Subkategori> usersList=[];
+    List<Subkategori> usersList = [];
     var params = "/subkategoribykategori?idkategori=" + idkategori;
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
-      var jsonResponse = await http.get(sUrl );
+      var jsonResponse = await http.get(sUrl);
       if (jsonResponse.statusCode == 200) {
         final jsonItems =
             json.decode(jsonResponse.body).cast<Map<String, dynamic>>();
@@ -167,7 +167,7 @@ class _KategoriPageState extends State<KategoriPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  const Text("Tambah Kategori"),
+          title: const Text("Tambah Kategori"),
           content: TextField(
             controller: txtkategori,
             keyboardType: TextInputType.text,
@@ -177,11 +177,11 @@ class _KategoriPageState extends State<KategoriPage> {
                 hintText: 'Nama Kategori',
                 contentPadding:
                     const EdgeInsets.only(top: 10, left: 12.0, bottom: 10),
-                border:  const OutlineInputBorder(
-                  borderRadius:   BorderRadius.all(
-                     Radius.circular(5.0),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
-                  borderSide:   BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.black,
                     width: 1.0,
                   ),
@@ -190,8 +190,8 @@ class _KategoriPageState extends State<KategoriPage> {
                 filled: false),
           ),
           actions: <Widget>[
-             ElevatedButton(
-              child: const  Text("Simpan"),
+            ElevatedButton(
+              child: const Text("Simpan"),
               onPressed: () {
                 _saveKategori(context, {"nama": txtkategori.text.trim()});
               },
@@ -207,7 +207,7 @@ class _KategoriPageState extends State<KategoriPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:   Text("Tambah Sub Kategori " + namakategori),
+          title: Text("Tambah Sub Kategori " + namakategori),
           content: TextField(
             controller: txtkategori,
             keyboardType: TextInputType.text,
@@ -217,11 +217,11 @@ class _KategoriPageState extends State<KategoriPage> {
                 hintText: 'Nama Sub Kategori',
                 contentPadding:
                     const EdgeInsets.only(top: 10, left: 12.0, bottom: 10),
-                border:  const OutlineInputBorder(
-                  borderRadius:  BorderRadius.all(
-                     Radius.circular(5.0),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
-                  borderSide:  BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.black,
                     width: 1.0,
                   ),
@@ -230,8 +230,8 @@ class _KategoriPageState extends State<KategoriPage> {
                 filled: false),
           ),
           actions: <Widget>[
-             ElevatedButton(
-              child:  const Text("Simpan"),
+            ElevatedButton(
+              child: const Text("Simpan"),
               onPressed: () {
                 _saveSubKategori(context, {
                   "nama": txtkategori.text.trim(),
@@ -251,7 +251,7 @@ class _KategoriPageState extends State<KategoriPage> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return const Center(
-            child:  CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
         });
   }
@@ -259,9 +259,9 @@ class _KategoriPageState extends State<KategoriPage> {
   Future<dynamic> _saveKategori(context, Map data) async {
     loadingProses(context);
     var params = "/postkategori";
-      var sUrl = Uri.parse(Palette.sUrl + params);
-      try {
-        http.post(sUrl, body: data).then((response) {
+    var sUrl = Uri.parse(Palette.sUrl + params);
+    try {
+      http.post(sUrl, body: data).then((response) {
         var res = response.body.toString();
         if (res == "OK") {
           setState(() {
@@ -271,15 +271,17 @@ class _KategoriPageState extends State<KategoriPage> {
           Navigator.of(context).pop();
         }
       });
-    } catch (e) {return null;}
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<dynamic> _saveSubKategori(context, Map data) async {
     loadingProses(context);
     var params = "/postsubkategori";
-      var sUrl = Uri.parse(Palette.sUrl + params);
-      try {
-        http.post(sUrl, body: data).then((response) {
+    var sUrl = Uri.parse(Palette.sUrl + params);
+    try {
+      http.post(sUrl, body: data).then((response) {
         var res = response.body.toString();
         if (res == "OK") {
           fetchSubKategori(idkategori.toString());
@@ -287,7 +289,9 @@ class _KategoriPageState extends State<KategoriPage> {
           Navigator.of(context).pop();
         }
       });
-    } catch (e) {return null;}
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget _widgetKategori() {
@@ -347,7 +351,7 @@ class _KategoriPageState extends State<KategoriPage> {
     var params = "/hapuskategori?id=" + id.toString();
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
-      http.get(sUrl ).then((response) {
+      http.get(sUrl).then((response) {
         var res = response.body.toString();
         if (res == "OK") {
           setState(() {
@@ -356,20 +360,24 @@ class _KategoriPageState extends State<KategoriPage> {
           });
         }
       });
-    } catch (e) {return null;}
+    } catch (e) {
+      return null;
+    }
   }
 
   _hapusSubKategori(int idkategori, int id) async {
     var params = "/hapussubkategori?id=" + id.toString();
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
-      http.get(sUrl ).then((response) {
+      http.get(sUrl).then((response) {
         var res = response.body.toString();
         if (res == "OK") {
           fetchSubKategori(idkategori.toString());
         }
       });
-    } catch (e) {debugPrint("");}
+    } catch (e) {
+      debugPrint("");
+    }
   }
 
   Widget _widgetSubKategori() {
@@ -389,8 +397,8 @@ class _KategoriPageState extends State<KategoriPage> {
         ),
         child: ListTile(
           dense: true,
-          contentPadding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+          contentPadding: const EdgeInsets.only(
+              left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
           leading: InkWell(
             onTap: () {
               setState(() {
