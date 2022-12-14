@@ -18,12 +18,14 @@ class Favorite extends StatefulWidget {
 }
 
 class _FavoriteState extends State<Favorite> {
-  DbHelper dbHelper = DbHelper();
+  // DbHelper dbHelper = DbHelper();
   bool login = false;
   String userid = "";
   List<Produk> produklist = [];
   List<Keranjang> keranjanglist = [];
   int jmlnotif = 0;
+
+  get dbHelper => null;
   // List<Cabang> cabanglist = [];
   // String _valcabang;
 
@@ -134,7 +136,7 @@ class _FavoriteState extends State<Favorite> {
           Row(
             children: [
               Padding(
-                  padding: login == false
+                  padding: login == true
                       ? const EdgeInsets.only(right: 15.0)
                       : const EdgeInsets.only(right: 5.0),
                   child: GestureDetector(
@@ -222,18 +224,18 @@ class _FavoriteState extends State<Favorite> {
         ],
         actionsIconTheme:
             const IconThemeData(size: 26.0, color: Colors.white, opacity: 10.0),
-        backgroundColor: Palette.bg1,
+        backgroundColor: Palette.abang,
       ),
-      body: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 1)),
-        builder: (c, s) => s.connectionState == ConnectionState.done
-            ? login
-                ? _favorite()
-                : _belumlogin()
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
-      ),
+      // body: FutureBuilder(
+      //   future: Future.delayed(const Duration(seconds: 1)),
+      //   builder: (c, s) => s.connectionState == ConnectionState.done
+      //       ? login
+      //           ? _favorite()
+      //           : _belumlogin()
+      //       : const Center(
+      //           child: CircularProgressIndicator(),
+      //         ),
+      // ),
     );
   }
 
@@ -495,10 +497,10 @@ class _FavoriteState extends State<Favorite> {
                             style: TextStyle(color: Colors.white)),
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.red,
                         borderRadius: BorderRadius.circular(5),
                         boxShadow: const [
-                          BoxShadow(color: Colors.blue, spreadRadius: 1),
+                          BoxShadow(color: Colors.red, spreadRadius: 1),
                         ],
                       ),
                     ),
@@ -513,46 +515,46 @@ class _FavoriteState extends State<Favorite> {
     );
   }
 
-  Widget _belumlogin() {
-    return SafeArea(
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Center(
-                child: Container(
-                    padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Segera Login agar kamu bisa menandai berbagai macam barang favoritmu',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 40.0,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (_) {
-                                return const Login('');
-                              }));
-                            },
-                            child: const Text('Login',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18)),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _belumlogin() {
+  //   return SafeArea(
+  //     child: Container(
+  //       color: Colors.white,
+  //       child: Column(
+  //         children: <Widget>[
+  //           Expanded(
+  //             child: Center(
+  //               child: Container(
+  //                   padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     children: [
+  //                       const Text(
+  //                         'Segera Login agar kamu bisa menandai berbagai macam barang favoritmu',
+  //                         style: TextStyle(fontSize: 18),
+  //                       ),
+  //                       SizedBox(
+  //                         width: double.infinity,
+  //                         height: 40.0,
+  //                         child: ElevatedButton(
+  //                           onPressed: () {
+  //                             Navigator.of(context)
+  //                                 .push(MaterialPageRoute(builder: (_) {
+  //                               return const Login('');
+  //                             }));
+  //                           },
+  //                           child: const Text('Login',
+  //                               style: TextStyle(
+  //                                   color: Colors.white, fontSize: 18)),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   )),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

@@ -26,16 +26,16 @@ class _LandingPageState extends State<LandingPage> {
   int _bottomNavCurrentIndex = 0;
   final List<Widget> _container = <Widget>[
     Beranda(),
-    Favorite(),
+    // Favorite(),
     KeranjangPage(),
     TransaksiPage(),
-    Akun()
+    // Akun()
   ];
 
   @override
   void initState() {
     super.initState();
-    cekLogin();
+    // cekLogin();
     if (widget.nav == "1") {
       _bottomNavCurrentIndex = 1;
     } else if (widget.nav == "2") {
@@ -54,8 +54,8 @@ class _LandingPageState extends State<LandingPage> {
   cekLogin() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      login = prefs.getBool('login') ?? false;
-      userid = prefs.getString('username') ?? "";
+      // login = prefs.getBool('login') ?? false;
+      // userid = prefs.getString('username') ?? "";
       jmlnotif = prefs.getInt('jmlnotif') ?? 0;
     });
   }
@@ -65,12 +65,12 @@ class _LandingPageState extends State<LandingPage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Palette.bg1,
+      statusBarColor: Palette.abang,
     ));
     return Scaffold(
         body: _container[_bottomNavCurrentIndex],
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Palette.bg1,
+          selectedItemColor: Palette.abang,
           type: BottomNavigationBarType.fixed,
           onTap: (index) {
             if (index < 3) {
@@ -83,9 +83,9 @@ class _LandingPageState extends State<LandingPage> {
                   _bottomNavCurrentIndex = index;
                 });
               } else {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return const Login('');
-                }));
+                // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                //   return const Login('');
+                // }));
 
                 // Navigator.of(context).pushNamedAndRemoveUntil(
                 //     '/login', (Route<dynamic> route) => false);
@@ -97,7 +97,7 @@ class _LandingPageState extends State<LandingPage> {
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.home,
-                color: Palette.bg1,
+                color: Palette.abang,
               ),
               icon: Icon(
                 Icons.home,
@@ -105,21 +105,21 @@ class _LandingPageState extends State<LandingPage> {
               ),
               label: 'Beranda',
             ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.favorite,
-                color: Palette.bg1,
-              ),
-              icon: Icon(
-                Icons.favorite_border,
-                color: Palette.menuOther,
-              ),
-              label: 'Favorite',
-            ),
+            // BottomNavigationBarItem(
+            //   activeIcon: Icon(
+            //     Icons.favorite,
+            //     color: Palette.abang,
+            //   ),
+            //   icon: Icon(
+            //     Icons.favorite_border,
+            //     color: Palette.menuOther,
+            //   ),
+            //   label: 'Favorite',
+            // ),
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.shopping_cart,
-                color: Palette.bg1,
+                color: Palette.abang,
               ),
               icon: Icon(
                 Icons.shopping_cart,
@@ -130,7 +130,7 @@ class _LandingPageState extends State<LandingPage> {
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.swap_horiz_sharp,
-                color: Palette.bg1,
+                color: Palette.abang,
               ),
               icon: Icon(
                 Icons.swap_horiz_sharp,
@@ -138,17 +138,17 @@ class _LandingPageState extends State<LandingPage> {
               ),
               label: 'Transaksi',
             ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.person,
-                color: Palette.bg1,
-              ),
-              icon: Icon(
-                Icons.person_outline,
-                color: Palette.menuOther,
-              ),
-              label: 'Profil',
-            ),
+            // BottomNavigationBarItem(
+            //   activeIcon: Icon(
+            //     Icons.person,
+            //     color: Palette.abang,
+            //   ),
+            //   icon: Icon(
+            //     Icons.person_outline,
+            //     color: Palette.menuOther,
+            //   ),
+            //   label: 'Profil',
+            // ),
           ],
         ));
   }

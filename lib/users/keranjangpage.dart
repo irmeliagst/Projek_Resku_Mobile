@@ -17,12 +17,14 @@ class KeranjangPage extends StatefulWidget {
 }
 
 class _KeranjangPageState extends State<KeranjangPage> {
-  DbHelper dbHelper = DbHelper();
+  // DbHelper dbHelper = DbHelper();
   List<Keranjang> keranjanglist = [];
   int _subTotal = 0;
   bool login = false;
   String userid = "";
   int jmlnotif = 0;
+
+  get dbHelper => null;
 
   @override
   void initState() {
@@ -142,7 +144,7 @@ class _KeranjangPageState extends State<KeranjangPage> {
       http.post(sUrl, body: body).then((response) {
         var res = response.body.toString();
         debugPrint(res);
-        
+
         if (res == "OK") {
           Navigator.of(context).pop();
           _kosongkanKeranjang();
@@ -214,7 +216,7 @@ class _KeranjangPageState extends State<KeranjangPage> {
         ],
         actionsIconTheme:
             const IconThemeData(size: 26.0, color: Colors.white, opacity: 10.0),
-        backgroundColor: Palette.bg1,
+        backgroundColor: Palette.abang,
       ),
       body: keranjanglist.isEmpty ? _keranjangKosong() : _widgetKeranjang(),
       bottomNavigationBar: Visibility(
@@ -248,14 +250,14 @@ class _KeranjangPageState extends State<KeranjangPage> {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
-                      login
-                          ? _klikCekout(keranjanglist)
-                          : Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (_) {
-                              return const Login('');
-                            }));
-                    },
+                    // onTap: () {
+                    //   login
+                    //       ? _klikCekout(keranjanglist)
+                    //       : Navigator.of(context)
+                    //           .push(MaterialPageRoute(builder: (_) {
+                    //           return const Login('');
+                    //         }));
+                    // },
                     child: Container(
                       height: 40.0,
                       child: const Center(

@@ -16,9 +16,9 @@ class DbHelper {
   DbHelper._createObject();
 
   factory DbHelper() {
-    if (_dbHelper==null) {
+    if (_dbHelper == null) {
       _dbHelper = DbHelper._createObject();
-    }else{}
+    } else {}
     return _dbHelper!;
   }
 
@@ -101,7 +101,7 @@ class DbHelper {
   Future<Database> get database async {
     if (_database == null) {
       _database = await initDb();
-    }else{}
+    } else {}
     return _database!;
   }
 
@@ -153,7 +153,7 @@ class DbHelper {
   Future<int> deletekategori() async {
     Database db = await database;
     db.execute("delete from kategori");
-    int count=1;
+    int count = 1;
     //int count = await db.delete("kategori");
     return count;
   }
@@ -191,7 +191,8 @@ class DbHelper {
 
   Future<List<Map<String, dynamic>>> selectsubkategori(int idkategori) async {
     Database db = await database;
-    var mapList = await db.query('subkategori', where: 'idkategori=?', whereArgs: [idkategori], orderBy: 'id');
+    var mapList = await db.query('subkategori',
+        where: 'idkategori=?', whereArgs: [idkategori], orderBy: 'id');
     return mapList;
   }
 
@@ -215,13 +216,15 @@ class DbHelper {
 
   Future<int> deleteproduk(int idkategori) async {
     Database db = await database;
-    int count = await db.delete('produk', where: 'idkategori=?', whereArgs: [idkategori]);
+    int count = await db
+        .delete('produk', where: 'idkategori=?', whereArgs: [idkategori]);
     return count;
   }
 
   Future<List<Map<String, dynamic>>> selectproduk(int idkategori) async {
     Database db = await database;
-    var mapList = await db.query('produk', where: 'idkategori=?', whereArgs: [idkategori]);
+    var mapList = await db
+        .query('produk', where: 'idkategori=?', whereArgs: [idkategori]);
     return mapList;
   }
 
@@ -284,7 +287,4 @@ class DbHelper {
     }
     return list;
   }
-
-
-
 }

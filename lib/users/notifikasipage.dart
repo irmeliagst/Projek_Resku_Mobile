@@ -8,14 +8,14 @@ import '../helper/dbhelper.dart';
 import '../models/notifikasi.dart';
 
 class NotifikasiPage extends StatefulWidget {
-  const NotifikasiPage({ Key? key }) : super(key: key);
+  const NotifikasiPage({Key? key}) : super(key: key);
 
   @override
   _NotifikasiPageState createState() => _NotifikasiPageState();
 }
 
 class _NotifikasiPageState extends State<NotifikasiPage> {
-  DbHelper dbHelper = DbHelper();
+  // DbHelper dbHelper = DbHelper();
   bool login = false;
   String username = "";
   Future<List<Notifikasi>>? notifikasilist;
@@ -48,7 +48,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
   }
 
   Future<List<Notifikasi>> fetchNotifikasi() async {
-    List<Notifikasi> usersList=[];
+    List<Notifikasi> usersList = [];
     var params = "/notifikasibyuserid?userid=" + username;
     var sUrl = Uri.parse(Palette.sUrl + params);
     try {
@@ -61,20 +61,19 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
           return Notifikasi.fromJson(json);
         }).toList();
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     return usersList;
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme:const IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
         ),
-        title:const Text('Notifikasi', style: TextStyle(color: Colors.white)),
+        title: const Text('Notifikasi', style: TextStyle(color: Colors.white)),
         backgroundColor: Palette.bg1,
       ),
       backgroundColor: Colors.grey[100],
@@ -120,13 +119,13 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
                 color: snapshot.data![i].st == "1"
                     ? Colors.white
                     : Colors.yellow[50],
-                boxShadow:const [
+                boxShadow: const [
                   BoxShadow(color: Colors.white, spreadRadius: 1),
                 ],
               ),
               child: ListTile(
                 dense: true,
-                contentPadding:const EdgeInsets.only(
+                contentPadding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
                 trailing: const Icon(Icons.keyboard_arrow_right),
                 title: Text(snapshot.data![i].tanggal),
@@ -169,14 +168,14 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
             ),
           ),
           color: Colors.white,
-          boxShadow:const [
+          boxShadow: const [
             BoxShadow(color: Colors.white, spreadRadius: 1),
           ],
         ),
         child: ListTile(
           dense: true,
-          contentPadding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+          contentPadding: const EdgeInsets.only(
+              left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
           title: Stack(
             children: [
               Text('Nota : ' +
@@ -243,14 +242,14 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
             ),
           ),
           color: Colors.white,
-          boxShadow: const[
+          boxShadow: const [
             BoxShadow(color: Colors.white, spreadRadius: 1),
           ],
         ),
         child: ListTile(
             dense: true,
-            contentPadding:
-               const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
+            contentPadding: const EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

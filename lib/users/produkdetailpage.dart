@@ -31,7 +31,7 @@ class ProdukDetailPage extends StatefulWidget {
 }
 
 class _ProdukDetailPageState extends State<ProdukDetailPage> {
-  DbHelper dbHelper = DbHelper();
+  // DbHelper dbHelper = DbHelper();
   String username = "";
   String? _valcabang;
   List<Cabang> cabanglist = [];
@@ -153,6 +153,7 @@ class _ProdukDetailPageState extends State<ProdukDetailPage> {
   }
 
   saveKeranjang(Keranjang _keranjang) async {
+    var dbHelper;
     Database db = await dbHelper.database;
     var batch = db.batch();
     db.execute(

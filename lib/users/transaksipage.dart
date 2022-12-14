@@ -15,9 +15,9 @@ class TransaksiPage extends StatefulWidget {
 }
 
 class _TransaksiPageState extends State<TransaksiPage> {
-  DbHelper dbHelper = DbHelper();
-  bool login = false;
-  String userid = "";
+  // DbHelper dbHelper = DbHelper();
+  // bool login = false;
+  // String userid = "";
   Future<List<Transaksi>>? transaksilist;
   Future<List<Transaksidetail>>? transaksidetaillist;
 
@@ -36,36 +36,36 @@ class _TransaksiPageState extends State<TransaksiPage> {
   @override
   void initState() {
     super.initState();
-    cekLogin();
+    // cekLogin();
   }
 
-  cekLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      login = prefs.getBool('login') ?? false;
-      userid = prefs.getString('username') ?? "";
-      transaksilist = fetchTransaksi();
-    });
-  }
+  // cekLogin() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     login = prefs.getBool('login') ?? false;
+  //     userid = prefs.getString('username') ?? "";
+  //     transaksilist = fetchTransaksi();
+  //   });
+  // }
 
-  Future<List<Transaksi>> fetchTransaksi() async {
-    List<Transaksi> usersList = [];
-    var params = "/transaksibyuserid?userid=" + userid;
-    var sUrl = Uri.parse(Palette.sUrl + params);
-    try {
-      var jsonResponse = await http.get(sUrl);
-      if (jsonResponse.statusCode == 200) {
-        final jsonItems =
-            json.decode(jsonResponse.body).cast<Map<String, dynamic>>();
+  // Future<List<Transaksi>> fetchTransaksi() async {
+  //   List<Transaksi> usersList = [];
+  //   var params = "/transaksibyuserid?userid=" + userid;
+  //   var sUrl = Uri.parse(Palette.sUrl + params);
+  //   try {
+  //     var jsonResponse = await http.get(sUrl);
+  //     if (jsonResponse.statusCode == 200) {
+  //       final jsonItems =
+  //           json.decode(jsonResponse.body).cast<Map<String, dynamic>>();
 
-        usersList = jsonItems.map<Transaksi>((json) {
-          return Transaksi.fromJson(json);
-        }).toList();
-      }
-    // ignore: empty_catches
-    } catch (e) {}
-    return usersList;
-  }
+  //       usersList = jsonItems.map<Transaksi>((json) {
+  //         return Transaksi.fromJson(json);
+  //       }).toList();
+  //     }
+  //     // ignore: empty_catches
+  //   } catch (e) {}
+  //   return usersList;
+  // }
 
   Future<List<Transaksidetail>> fetchTransaksiDetail(String nota) async {
     List<Transaksidetail> usersList = [];
@@ -81,7 +81,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           return Transaksidetail.fromJson(json);
         }).toList();
       }
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     return usersList;
   }
@@ -91,7 +91,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transaksi', style: TextStyle(color: Colors.white)),
-        backgroundColor: Palette.bg1,
+        backgroundColor: Palette.abang,
       ),
       backgroundColor: Colors.grey[100],
       body: Column(children: <Widget>[
@@ -397,15 +397,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
         child: FutureBuilder<List<Transaksidetail>>(
           future: transaksidetaillist,
           builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: Column(
-                    children: const [
-                      CircularProgressIndicator(),
-                    ],
-                  ),
-                );
-              }
+            if (!snapshot.hasData) {
+              return Center(
+                child: Column(
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            }
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, i) {

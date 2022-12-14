@@ -113,7 +113,7 @@ class _SearchPageState extends State<SearchPage> {
               fillColor: const Color(0xfff3f3f4),
               filled: true),
         ),
-        backgroundColor: Palette.bg1,
+        backgroundColor: Palette.abang,
         // actions: <Widget>[
         //   Padding(
         //     padding: EdgeInsets.only(right: 15.0),
