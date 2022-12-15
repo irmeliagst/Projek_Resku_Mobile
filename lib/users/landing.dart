@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../constans.dart';
-import '../login.dart';
-import 'akunpage.dart';
 import 'beranda.dart';
-import 'favoritepage.dart';
 import 'keranjangpage.dart';
 import 'transaksipage.dart';
 
@@ -35,7 +31,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-    // cekLogin();
     if (widget.nav == "1") {
       _bottomNavCurrentIndex = 1;
     } else if (widget.nav == "2") {

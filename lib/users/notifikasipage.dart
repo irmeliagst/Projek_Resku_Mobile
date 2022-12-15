@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constans.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../helper/dbhelper.dart';
 import '../models/notifikasi.dart';
 
 class NotifikasiPage extends StatefulWidget {
@@ -15,7 +14,6 @@ class NotifikasiPage extends StatefulWidget {
 }
 
 class _NotifikasiPageState extends State<NotifikasiPage> {
-  // DbHelper dbHelper = DbHelper();
   bool login = false;
   String username = "";
   Future<List<Notifikasi>>? notifikasilist;

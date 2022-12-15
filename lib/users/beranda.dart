@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import '../constans.dart';
-import '../helper/dbhelper.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/keranjang.dart';
-import 'depanpage.dart';
-import 'kategoripage.dart';
-import 'notifikasipage.dart';
 
 // ignore: use_key_in_widget_constructors
 class Beranda extends StatefulWidget {
@@ -16,22 +10,19 @@ class Beranda extends StatefulWidget {
 }
 
 class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
-  // DbHelper dbHelper = DbHelper();
   TabController? _tabController;
-  //int _activeTabIndex;
-  // bool login = false;
-  // String userid = "";
+
   List<Keranjang> keranjanglist = [];
   int jmlnotif = 0;
 
-  get dbHelper => null;
+  get api => null;
 
   @override
   void initState() {
     super.initState();
-    getkeranjang();
+    // getkeranjang();
     // cekLogin();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(vsync: this, length: 1);
     _tabController!.addListener(_setActiveTabIndex);
   }
 
@@ -40,49 +31,19 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<List<Keranjang>> getkeranjang() async {
-    final Future<Database> dbFuture = dbHelper.initDb();
-    dbFuture.then((database) {
-      Future<List<Keranjang>> listFuture = dbHelper.getkeranjang();
-      listFuture.then((_keranjanglist) {
-        if (mounted) {
-          setState(() {
-            keranjanglist = _keranjanglist;
-          });
-        }
-      });
-    });
-    return keranjanglist;
-  }
-
-  // cekLogin() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     login = prefs.getBool('login') ?? false;
-  //     userid = prefs.getString('username') ?? "";
+  // Future<List<Keranjang>> getkeranjang() async {
+  //   // final Future<Database> dbFuture = api.initDb(null);
+  //   dbFuture.then((database) {
+  //     Future<List<Keranjang>> listFuture = api.getkeranjang();
+  //     listFuture.then((_keranjanglist) {
+  //       if (mounted) {
+  //         setState(() {
+  //           keranjanglist = _keranjanglist;
+  //         });
+  //       }
+  //     });
   //   });
-  //   _cekSt();
-  // }
-
-  // _cekSt() async {
-  //   if (userid == "") {
-  //   } else {
-  //     var params = "/cekstbyuserid?userid=" + userid;
-  //     var sUrl = Uri.parse(Palette.sUrl + params);
-  //     try {
-  //       http.get(sUrl).then((response) {
-  //         var res = response.body.toString().split("|");
-  //         if (res[0] == "OK") {
-  //           if (mounted) {
-  //             setState(() {
-  //               jmlnotif = int.parse(res[1]);
-  //             });
-  //           }
-  //         }
-  //       });
-  //       // ignore: empty_catches
-  //     } catch (e) {}
-  //   }
+  //   return keranjanglist;
   // }
 
   void _setActiveTabIndex() {
@@ -92,7 +53,7 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
               title: TextField(
@@ -123,96 +84,7 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
               ),
               backgroundColor: Palette.abang,
               // ignore: prefer_const_literals_to_create_immutables
-              actions: <Widget>[
-                // Row(
-                //   children: [
-                //     Padding(
-                //         padding: login == false
-                //             ? const EdgeInsets.only(right: 15.0)
-                //             : const EdgeInsets.only(right: 5.0),
-                //         child: GestureDetector(
-                //           onTap: () {
-                //             Navigator.of(context).pushNamedAndRemoveUntil(
-                //                 '/keranjangusers',
-                //                 (Route<dynamic> route) => false);
-                //           },
-                //           child: Container(
-                //             margin: const EdgeInsets.only(top: 5),
-                //             child: Stack(
-                //               children: [
-                //                 const Icon(
-                //                   Icons.shopping_cart,
-                //                   size: 28.0,
-                //                 ),
-                //                 Positioned(
-                //                   top: 2,
-                //                   right: 4,
-                //                   child: keranjanglist.isNotEmpty
-                //                       ? Container(
-                //                           padding: const EdgeInsets.all(3),
-                //                           decoration: const BoxDecoration(
-                //                             color: Colors.red,
-                //                             shape: BoxShape.circle,
-                //                           ),
-                //                           child: Text(
-                //                             keranjanglist.length.toString(),
-                //                             style: const TextStyle(
-                //                               fontSize: 11,
-                //                               color: Colors.white,
-                //                             ),
-                //                           ),
-                //                         )
-                //                       : const Text(''),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )),
-                //     login == false
-                //         ? const Text('')
-                //         : Padding(
-                //             padding: const EdgeInsets.only(right: 15.0),
-                //             child: GestureDetector(
-                //               onTap: () {
-                //                 Navigator.of(context)
-                //                     .push(MaterialPageRoute(builder: (_) {
-                //                   return const NotifikasiPage();
-                //                 }));
-                //               },
-                //               child: Container(
-                //                 margin: const EdgeInsets.only(top: 5),
-                //                 child: Stack(
-                //                   children: [
-                //                     const Icon(
-                //                       Icons.notifications,
-                //                       size: 28.0,
-                //                     ),
-                //                     Positioned(
-                //                       top: 2,
-                //                       right: 4,
-                //                       child: jmlnotif > 0
-                //                           ? Container(
-                //                               padding: const EdgeInsets.all(3),
-                //                               decoration: const BoxDecoration(
-                //                                 color: Colors.red,
-                //                                 shape: BoxShape.circle,
-                //                               ),
-                //                               child: Text(
-                //                                 jmlnotif.toString(),
-                //                                 style: const TextStyle(
-                //                                   fontSize: 11,
-                //                                   color: Colors.white,
-                //                                 ),
-                //                               ),
-                //                             )
-                //                           : const Text(''),
-                //                     ),
-                //                   ],
-                //                 ),
-                //               ),
-                //             )),
-                //   ],
-              ],
+              actions: <Widget>[],
               actionsIconTheme: const IconThemeData(
                   size: 26.0, color: Colors.white, opacity: 10.0),
               bottom: TabBar(
@@ -226,16 +98,6 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
                   // Tab(text: 'Kategori'),
                 ],
               )),
-          // backgroundColor: Palette.bg1,
-          // body: TabBarView(
-          //   physics: const NeverScrollableScrollPhysics(),
-          //   controller: _tabController,
-          //   children: const [
-          //     Depan(),
-          //     KategoriPage(),
-          //   ],
-          // ),
-          // ignore: dead_code
         ));
   }
 }

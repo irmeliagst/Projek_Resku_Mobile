@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'constans.dart';
 
 class LauncherPage extends StatefulWidget {
@@ -14,12 +12,8 @@ class LauncherPage extends StatefulWidget {
 }
 
 class _LauncherPageState extends State<LauncherPage> {
-  // final _firebaseMessaging = FirebaseMessaging();
-  String token = '';
-
   @override
   void initState() {
-    // fcmConfigure();
     super.initState();
     startLaunching();
   }
@@ -29,15 +23,8 @@ class _LauncherPageState extends State<LauncherPage> {
     super.dispose();
   }
 
-  // void fcmConfigure(){
-  //   _firebaseMessaging.getToken().then((token) => setState(() {
-  //     this.token = token;
-  //   }));
-  // }
-
   startLaunching() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', token);
 
     bool login;
     String level = "3";

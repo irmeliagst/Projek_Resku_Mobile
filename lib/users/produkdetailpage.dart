@@ -4,7 +4,6 @@ import '../models/keranjang.dart';
 import '../constans.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../helper/dbhelper.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/cabang.dart';
 import '../models/gambar.dart';
@@ -31,7 +30,6 @@ class ProdukDetailPage extends StatefulWidget {
 }
 
 class _ProdukDetailPageState extends State<ProdukDetailPage> {
-  // DbHelper dbHelper = DbHelper();
   String username = "";
   String? _valcabang;
   List<Cabang> cabanglist = [];

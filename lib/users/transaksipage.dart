@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constans.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../helper/dbhelper.dart';
 import '../models/transaksi.dart';
 import '../models/transaksidetail.dart';
 
@@ -15,9 +13,6 @@ class TransaksiPage extends StatefulWidget {
 }
 
 class _TransaksiPageState extends State<TransaksiPage> {
-  // DbHelper dbHelper = DbHelper();
-  // bool login = false;
-  // String userid = "";
   Future<List<Transaksi>>? transaksilist;
   Future<List<Transaksidetail>>? transaksidetaillist;
 
@@ -36,36 +31,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
   @override
   void initState() {
     super.initState();
-    // cekLogin();
   }
-
-  // cekLogin() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     login = prefs.getBool('login') ?? false;
-  //     userid = prefs.getString('username') ?? "";
-  //     transaksilist = fetchTransaksi();
-  //   });
-  // }
-
-  // Future<List<Transaksi>> fetchTransaksi() async {
-  //   List<Transaksi> usersList = [];
-  //   var params = "/transaksibyuserid?userid=" + userid;
-  //   var sUrl = Uri.parse(Palette.sUrl + params);
-  //   try {
-  //     var jsonResponse = await http.get(sUrl);
-  //     if (jsonResponse.statusCode == 200) {
-  //       final jsonItems =
-  //           json.decode(jsonResponse.body).cast<Map<String, dynamic>>();
-
-  //       usersList = jsonItems.map<Transaksi>((json) {
-  //         return Transaksi.fromJson(json);
-  //       }).toList();
-  //     }
-  //     // ignore: empty_catches
-  //   } catch (e) {}
-  //   return usersList;
-  // }
 
   Future<List<Transaksidetail>> fetchTransaksiDetail(String nota) async {
     List<Transaksidetail> usersList = [];
@@ -295,11 +261,6 @@ class _TransaksiPageState extends State<TransaksiPage> {
                         ),
                         child: Row(
                           children: [
-                            // Icon(
-                            //   Icons.notifications,
-                            //   size: 15.0,
-                            //   color: Colors.white,
-                            // ),
                             Text(
                               flag,
                               style: const TextStyle(
@@ -451,33 +412,6 @@ class _TransaksiPageState extends State<TransaksiPage> {
           },
         ),
       ),
-
-      // Container(
-      //   decoration: BoxDecoration(
-      //     border: Border(
-      //       bottom: BorderSide(
-      //         color: Palette.menuOther,
-      //         width: 1.0,
-      //       ),
-      //     ),
-      //     color: Colors.white,
-      //     boxShadow: [
-      //       BoxShadow(color: Colors.white, spreadRadius: 1),
-      //     ],
-      //   ),
-      //   child: ListTile(
-      //     dense: true,
-      //     contentPadding:
-      //         EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0, bottom: 0.0),
-      //     leading: Icon(Icons.keyboard_arrow_left),
-      //     title: Text('Nota : '+nota+' \nTanggal : '+tanggal+' | '+total),
-      //     onTap: () {
-      //       setState(() {
-      //         li = 1;
-      //       });
-      //     },
-      //   ),
-      // ),
     ]);
   }
 }

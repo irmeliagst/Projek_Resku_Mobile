@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../constans.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../helper/dbhelper.dart';
-import 'package:sqflite/sqflite.dart';
-import '../login.dart';
 import '../models/keranjang.dart';
-import 'notifikasipage.dart';
 
 // ignore: use_key_in_widget_constructors
 class KeranjangPage extends StatefulWidget {
@@ -17,56 +12,22 @@ class KeranjangPage extends StatefulWidget {
 }
 
 class _KeranjangPageState extends State<KeranjangPage> {
-  // DbHelper dbHelper = DbHelper();
   List<Keranjang> keranjanglist = [];
   int _subTotal = 0;
-  bool login = false;
-  String userid = "";
   int jmlnotif = 0;
 
-  get dbHelper => null;
+  get api => null;
 
   @override
   void initState() {
     super.initState();
     getkeranjang();
-    cekLogin();
-  }
-
-  cekLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      login = prefs.getBool('login') ?? false;
-      userid = prefs.getString('username') ?? "";
-    });
-    _cekSt();
-  }
-
-  _cekSt() async {
-    if (userid == "") {
-    } else {
-      var params = "/cekstbyuserid?userid=" + userid;
-      var sUrl = Uri.parse(Palette.sUrl + params);
-      try {
-        http.get(sUrl).then((response) {
-          var res = response.body.toString().split("|");
-          if (res[0] == "OK") {
-            if (mounted) {
-              setState(() {
-                jmlnotif = int.parse(res[1]);
-              });
-            }
-          }
-        });
-        // ignore: empty_catches
-      } catch (e) {}
-    }
   }
 
   Future<List<Keranjang>> getkeranjang() async {
-    final Future<Database> dbFuture = dbHelper.initDb();
+    final Future<Database> dbFuture = api.initDb();
     dbFuture.then((database) {
-      Future<List<Keranjang>> listFuture = dbHelper.getkeranjang();
+      Future<List<Keranjang>> listFuture = api.getkeranjang();
       listFuture.then((_keranjanglist) {
         if (mounted) {
           setState(() {
@@ -97,30 +58,23 @@ class _KeranjangPageState extends State<KeranjangPage> {
   }
 
   _tambahJmlKeranjang(int id) async {
-    Database db = await dbHelper.database;
+    Database db = await api.database;
     var batch = db.batch();
     db.execute('update keranjang set jumlah=jumlah+1 where id=?', [id]);
     await batch.commit();
   }
 
   _kurangJmlKeranjang(int id) async {
-    Database db = await dbHelper.database;
+    Database db = await api.database;
     var batch = db.batch();
     db.execute('update keranjang set jumlah=jumlah-1 where id=?', [id]);
     await batch.commit();
   }
 
   _deleteKeranjang(int id) async {
-    Database db = await dbHelper.database;
+    Database db = await api.database;
     var batch = db.batch();
     db.execute('delete from keranjang where id=?', [id]);
-    await batch.commit();
-  }
-
-  _kosongkanKeranjang() async {
-    Database db = await dbHelper.database;
-    var batch = db.batch();
-    db.execute('delete from keranjang');
     await batch.commit();
   }
 
@@ -147,7 +101,7 @@ class _KeranjangPageState extends State<KeranjangPage> {
 
         if (res == "OK") {
           Navigator.of(context).pop();
-          _kosongkanKeranjang();
+          // _kosongkanKeranjang();
           // Navigator.of(context).pushNamedAndRemoveUntil(
           //     '/terimakasih', (Route<dynamic> route) => false);
         }
@@ -165,55 +119,6 @@ class _KeranjangPageState extends State<KeranjangPage> {
           color: Colors.white,
         ),
         title: const Text('Keranjang', style: TextStyle(color: Colors.white)),
-        actions: <Widget>[
-          Row(
-            children: [
-              login == false
-                  ? const Text('')
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (_) {
-                            return const NotifikasiPage();
-                          }));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 5),
-                          child: Stack(
-                            children: [
-                              const Icon(
-                                Icons.notifications,
-                                size: 28.0,
-                              ),
-                              Positioned(
-                                top: 2,
-                                right: 4,
-                                child: jmlnotif > 0
-                                    ? Container(
-                                        padding: const EdgeInsets.all(3),
-                                        decoration: const BoxDecoration(
-                                          color: Colors.red,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Text(
-                                          jmlnotif.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      )
-                                    : const Text(''),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
-            ],
-          ),
-        ],
         actionsIconTheme:
             const IconThemeData(size: 26.0, color: Colors.white, opacity: 10.0),
         backgroundColor: Palette.abang,
@@ -611,4 +516,10 @@ class _KeranjangPageState extends State<KeranjangPage> {
       ),
     );
   }
+}
+
+class Database {
+  batch() {}
+
+  void execute(String s, List<int> list) {}
 }
