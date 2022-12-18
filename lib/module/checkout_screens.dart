@@ -1,7 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-
-import '../core.dart';
+import 'package:resku/module/home_screens.dart';
 
 class CheckoutScreenView extends StatefulWidget {
   const CheckoutScreenView({Key? key}) : super(key: key);
@@ -15,20 +14,14 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
     {
       "photo":
           "https://i.ibb.co/dG68KJM/photo-1513104890138-7c749659a591-crop-entropy-cs-tinysrgb-fit-max-fm-jpg-ixid-Mnwy-ODA4-ODh8-MHwxf-H.jpg",
-      "product_name": "Frenzy Pizza",
-      "price": 25,
-      "category": "Food",
-      "description":
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "nama_menu": "Frenzy Pizza",
+      "harga": 50000,
     },
     {
       "photo":
           "https://i.ibb.co/mHtmhmP/photo-1521305916504-4a1121188589-crop-entropy-cs-tinysrgb-fit-max-fm-jpg-ixid-Mnwy-ODA4-ODh8-MHwxf-H.jpg",
-      "product_name": "Beef Burger",
-      "price": 22,
-      "category": "Food",
-      "description":
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "nama_menu": "Beef Burger",
+      "harga": 24000,
     },
   ];
 
@@ -43,7 +36,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "Checkout",
+          "Pesan Sekarang",
           style: GoogleFonts.poppins(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -60,46 +53,6 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          const Icon(
-            Icons.message_outlined,
-            size: 24.0,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-          Stack(
-            children: const [
-              Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.notifications_outlined,
-                  size: 30.0,
-                  color: Colors.black,
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 0,
-                child: CircleAvatar(
-                  radius: 8,
-                  backgroundColor: Colors.red,
-                  child: Text(
-                    "2",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -110,51 +63,39 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               const SizedBox(
                 height: 24.0,
               ),
-              Container(
-                height: 115.99,
-                width: 335,
-                decoration: const BoxDecoration(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Shipping Address",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13, fontWeight: FontWeight.w700)),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Container(
-                      height: 90.0,
-                      width: 335,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            16.0,
+              Center(
+                child: Container(
+                  height: 115.99,
+                  width: 335,
+                  decoration: const BoxDecoration(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Masukan nama",
+                          style: GoogleFonts.poppins(
+                              fontSize: 13, fontWeight: FontWeight.w700)),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Container(
+                        height: 90.0,
+                        width: 335,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32.0, vertical: 10),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              16.0,
+                            ),
                           ),
                         ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              "Domen Tikoro Street:  825 Baker Avenue, Dallas,Texas, Zip code  75202",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12, fontWeight: FontWeight.normal)),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Text("Change address",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                  color: const Color(0xff01A688))),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -167,7 +108,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Summary Item",
+                    Text("Daftar Pesanan",
                         style: GoogleFonts.poppins(
                             fontSize: 13, fontWeight: FontWeight.w700)),
                     const SizedBox(
@@ -210,19 +151,15 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                                     ),
                                   ),
                                 ),
-                                title: Text("${item['product_name']}",
+                                title: Text("${item['nama_menu']}",
                                     style: GoogleFonts.poppins(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500)),
-                                subtitle: Text("\$${item['price']}",
+                                subtitle: Text("\$${item['harga']}",
                                     style: GoogleFonts.poppins(
                                         fontSize: 12,
-                                        color: const Color(0xff02A88A),
-                                        fontWeight: FontWeight.normal)),
-                                trailing: Text("Quantity 1",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 11,
-                                        color: const Color(0xffBABEBF),
+                                        color: const Color.fromARGB(
+                                            255, 242, 16, 16),
                                         fontWeight: FontWeight.normal)),
                               );
                             },
@@ -231,154 +168,6 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              SizedBox(
-                height: 70.99,
-                width: 335,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 70.0,
-                      width: 335,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            16.0,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Enter Coupon Code",
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xffBABEBF),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal)),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: 102,
-                            height: 32,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1.0,
-                                  color: const Color(0xff01A688),
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                                color:
-                                    const Color(0xff01A688).withOpacity(0.1)),
-                            child: Center(
-                              child: Text("USE Coupon",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 9.22,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xff01A688))),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              SizedBox(
-                height: 180,
-                width: 335,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Summary Order",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13, fontWeight: FontWeight.w700)),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Container(
-                      height: 120.99,
-                      width: 335,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            16.0,
-                          ),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Text("Delivery Fee",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                              const Spacer(),
-                              Text("\$4,00",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            children: [
-                              Text("Subtotal",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                              const Spacer(),
-                              Text("\$1,468.20",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            children: [
-                              Text("Total",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                              const Spacer(),
-                              Text("\$1,00",
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff516971),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(),
             ],
           ),
         ),
@@ -401,14 +190,14 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Total Payment",
+                Text("Total",
                     style: GoogleFonts.poppins(
                         color: const Color(0xff516971),
                         fontSize: 14,
                         fontWeight: FontWeight.w600)),
-                Text("\$1,480.20",
+                Text("74.000",
                     style: GoogleFonts.poppins(
-                        color: const Color(0xff02A88A),
+                        color: const Color.fromARGB(255, 227, 27, 27),
                         fontSize: 20,
                         fontWeight: FontWeight.w700)),
               ],
@@ -419,7 +208,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
               height: 50,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFB039),
+                    backgroundColor: const Color.fromARGB(255, 255, 57, 57),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(62), // <-- Radius
                     ),
@@ -467,15 +256,15 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                                               16.0,
                                             ),
                                           ),
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                              "assets/images/icon-succes-transaction.png",
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
+                                          // image: DecorationImage(
+                                          //   image: AssetImage(
+                                          //     "assets/images/icon-succes-transaction.png",
+                                          //   ),
+                                          //   fit: BoxFit.cover,
+                                          // ),
                                         ),
                                       ),
-                                      Text("Your order has been successfull",
+                                      Text("Berhasil melakukan pemesanan",
                                           style: GoogleFonts.poppins(
                                               fontSize: 14,
                                               color: Colors.black,
@@ -483,8 +272,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                                       const SizedBox(
                                         height: 25.0,
                                       ),
-                                      Text(
-                                          "we will contact the seller so that it can be sent immediately to the destination",
+                                      Text("Mohon ditunggu",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
                                               fontSize: 12,
@@ -499,7 +287,8 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  const Color(0xffFFB039),
+                                                  const Color.fromARGB(
+                                                      255, 255, 57, 57),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(
@@ -528,7 +317,7 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
                   },
                   child: (isLoading != false)
                       ? const CircularProgressIndicator()
-                      : const Text("Continue")),
+                      : const Text("Pesan Sekarang")),
             ),
           ],
         ),

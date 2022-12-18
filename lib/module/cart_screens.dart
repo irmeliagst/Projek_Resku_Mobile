@@ -19,7 +19,7 @@ class _CardScreenViewState extends State<CardScreenView> {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "Your Cart",
+          "Keranjang Belanjamu",
           style: GoogleFonts.poppins(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -36,46 +36,46 @@ class _CardScreenViewState extends State<CardScreenView> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          const Icon(
-            Icons.message_outlined,
-            size: 24.0,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-          Stack(
-            children: const [
-              Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.notifications_outlined,
-                  size: 30.0,
-                  color: Colors.black,
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 0,
-                child: CircleAvatar(
-                  radius: 8,
-                  backgroundColor: Colors.red,
-                  child: Text(
-                    "2",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-          const SizedBox(
-            width: 23.0,
-          ),
-        ],
+        // actions: [
+        //   const Icon(
+        //     Icons.message_outlined,
+        //     size: 24.0,
+        //     color: Colors.black,
+        //   ),
+        //   const SizedBox(
+        //     width: 23.0,
+        //   ),
+        //   Stack(
+        //     children: const [
+        //       Align(
+        //         alignment: Alignment.center,
+        //         child: Icon(
+        //           Icons.notifications_outlined,
+        //           size: 30.0,
+        //           color: Colors.black,
+        //         ),
+        //       ),
+        //       Positioned(
+        //         top: 8,
+        //         right: 0,
+        //         child: CircleAvatar(
+        //           radius: 8,
+        //           backgroundColor: Colors.red,
+        //           child: Text(
+        //             "2",
+        //             style: TextStyle(fontSize: 10),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        //   const SizedBox(
+        //     width: 23.0,
+        //   ),
+        //   const SizedBox(
+        //     width: 23.0,
+        //   ),
+        // ],
       ),
       body: ListView(
         children: [
@@ -87,7 +87,7 @@ class _CardScreenViewState extends State<CardScreenView> {
                   children: [
                     Checkbox(value: false, onChanged: (value) {}),
                     Text(
-                      "Select All Item",
+                      "Pilih Semua Menu",
                       style: GoogleFonts.poppins(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -141,7 +141,7 @@ class _CardScreenViewState extends State<CardScreenView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "${item['product_name']}",
+                                  "${item['nama_menu']}",
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -149,11 +149,11 @@ class _CardScreenViewState extends State<CardScreenView> {
                                   ),
                                 ),
                                 Text(
-                                  "${item['price']}",
+                                  "${item['harga']}",
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
-                                    color: const Color(0xff02A88A),
+                                    color: const Color.fromARGB(255, 168, 2, 2),
                                   ),
                                 ),
                                 Row(
@@ -194,7 +194,7 @@ class _CardScreenViewState extends State<CardScreenView> {
                                       height: 25.92,
                                       width: 25.92,
                                       decoration: const BoxDecoration(
-                                        color: Color(0xff06AB8D),
+                                        color: Color.fromARGB(255, 171, 6, 6),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(
                                             10.0,
@@ -253,7 +253,7 @@ class _CardScreenViewState extends State<CardScreenView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Total Payment",
+                    "Total ",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -261,11 +261,11 @@ class _CardScreenViewState extends State<CardScreenView> {
                     ),
                   ),
                   Text(
-                    "\$1,468.20",
+                    "195.000",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xff02A88A),
+                      color: const Color.fromARGB(255, 168, 2, 2),
                     ),
                   ),
                 ],
@@ -278,18 +278,19 @@ class _CardScreenViewState extends State<CardScreenView> {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFB039),
+                    backgroundColor: const Color.fromARGB(255, 255, 57, 57),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(62), // <-- Radius
                     ),
                   ),
                   onPressed: () {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CheckoutScreenView()),
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CheckoutScreenView()),
                     );
                   },
-                  child: const Text("Save"),
+                  child: const Text("Oke"),
                 ),
               ),
             ],

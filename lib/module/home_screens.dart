@@ -1,6 +1,8 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:slicing_ui_shopping_apps/core.dart';
+import 'package:resku/module/detail_product_screen.dart';
+import 'package:resku/presentation/login_screen/login_screen.dart';
+import 'package:resku/services/services_grocery.dart';
 
 class HomeScreenView extends StatefulWidget {
   const HomeScreenView({Key? key}) : super(key: key);
@@ -15,9 +17,18 @@ class _HomeScreenViewState extends State<HomeScreenView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: const Icon(
-          Icons.menu,
-          size: 24.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          },
+          icon: const Icon(
+            Icons.add_home,
+            size: 24.0,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: const Color.fromARGB(255, 171, 6, 6),
         title: Text(
@@ -94,7 +105,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                 filled: true,
                                 fillColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
-                                hintText: "Search product here",
+                                hintText: "Search",
                                 hintStyle: GoogleFonts.poppins(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 13,
@@ -213,7 +224,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                       child: Row(
                         children: [
                           Text(
-                            "New Produck",
+                            "Daftar Menu",
                             style: GoogleFonts.poppins(
                                 fontSize: 13, fontWeight: FontWeight.w600),
                           ),
@@ -288,7 +299,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text("${item['product_name']}",
+                                        Text("${item['nama_menu']}",
                                             style: GoogleFonts.poppins(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,

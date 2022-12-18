@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'core.dart';
+import 'package:resku/splashscreen2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,8 @@ void main() {
 
 // Widget mainview = const WelcomeView();
 // Widget mainview = const RegisterView();
-Widget mainview = const HomeScreenView();
+// Widget mainview = const HomeScreenView();
+Widget mainview = const SplashScreenPage();
 // Widget mainview = const DetailProductView();
 // Widget mainview = const CheckoutScreenView();
 
