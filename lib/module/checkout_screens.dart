@@ -27,6 +27,17 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
 
   bool isLoading = false;
 
+  List<String> listMeja = ["A1", "A2", "A3", "A4", "A5", "A6"];
+
+  String nMeja = "A1";
+  int? nilaiMeja;
+
+  void pilihmeja(String value) {
+    setState(() {
+      nMeja = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,121 +66,112 @@ class _CheckoutScreenViewState extends State<CheckoutScreenView> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 24.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 15.0,
+            ),
+            TextFormField(
+              // ignore: unnecessary_new
+              decoration: new InputDecoration(
+                labelText: "Isikan Nama",
+                icon: const Icon(Icons.people),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0)),
               ),
-              Center(
-                child: Container(
-                  height: 115.99,
-                  width: 335,
-                  decoration: const BoxDecoration(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Masukan nama",
-                          style: GoogleFonts.poppins(
-                              fontSize: 13, fontWeight: FontWeight.w700)),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Container(
-                        height: 90.0,
-                        width: 335,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32.0, vertical: 10),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                      ),
-                    ],
-                  ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Pilih no meja",
+                    style: GoogleFonts.poppins(
+                        fontSize: 13, fontWeight: FontWeight.w700)),
+                const SizedBox(width: 50),
+                DropdownButton(
+                  value: nMeja,
+                  onChanged: (String? value) {
+                    pilihmeja(value ?? "");
+                    nilaiMeja = listMeja.indexOf(value ?? "");
+                  },
+                  items: listMeja.map((String value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Container(
-                height: 204.75,
-                width: 335,
-                decoration: const BoxDecoration(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Daftar Pesanan",
-                        style: GoogleFonts.poppins(
-                            fontSize: 13, fontWeight: FontWeight.w700)),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Container(
-                      height: 180.0,
-                      width: 335,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(
-                            16.0,
-                          ),
+              ],
+            ),
+            Container(
+              height: 204.75,
+              width: 335,
+              decoration: const BoxDecoration(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Daftar Pesanan",
+                      style: GoogleFonts.poppins(
+                          fontSize: 13, fontWeight: FontWeight.w700)),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  Container(
+                    height: 180.0,
+                    width: 335,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 10),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          16.0,
                         ),
                       ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: List.generate(
-                            dataCheckout.length,
-                            (index) {
-                              var item = dataCheckout[index];
-                              return ListTile(
-                                leading: Container(
-                                  height: 60.0,
-                                  width: 60.0,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        "${item['photo']}",
-                                      ),
-                                      fit: BoxFit.cover,
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          dataCheckout.length,
+                          (index) {
+                            var item = dataCheckout[index];
+                            return ListTile(
+                              leading: Container(
+                                height: 60.0,
+                                width: 60.0,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      "${item['photo']}",
                                     ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(
-                                        16.0,
-                                      ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(
+                                      16.0,
                                     ),
                                   ),
                                 ),
-                                title: Text("${item['nama_menu']}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500)),
-                                subtitle: Text("\$${item['harga']}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        color: const Color.fromARGB(
-                                            255, 242, 16, 16),
-                                        fontWeight: FontWeight.normal)),
-                              );
-                            },
-                          )),
-                    ),
-                  ],
-                ),
+                              ),
+                              title: Text("${item['nama_menu']}",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500)),
+                              subtitle: Text("\$${item['harga']}",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      color: const Color.fromARGB(
+                                          255, 242, 16, 16),
+                                      fontWeight: FontWeight.normal)),
+                            );
+                          },
+                        )),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(

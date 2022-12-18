@@ -1,4 +1,4 @@
-import 'package:resku/DrawerScreen.dart';
+// import 'package:resku/DrawerScreen.dart';
 import 'package:resku/core.dart';
 import 'package:resku/presentation/validasi_screen/validasi_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      drawer: const DrawerScreen(),
+      // drawer: const DrawerScreen(),
       body: ListView.separated(
           itemBuilder: (ctx, i) {
             return ListTile(

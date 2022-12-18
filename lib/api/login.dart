@@ -1,50 +1,32 @@
 import 'dart:convert';
 
-class Beranda {
-  int id;
-  String gambar;
-  String nama;
-  String jenis;
-  int harga;
+// ignore: camel_case_types
+class login {
+  String username;
+  String password;
 
-  Beranda(
-      {this.id = 0,
-      required this.gambar,
-      required this.nama,
-      required this.jenis,
-      required this.harga});
+  login({required this.username, required this.password});
 
-  factory Beranda.fromJson(Map<String, dynamic> map) {
-    return Beranda(
-        id: map["id"],
-        gambar: map["gambar"],
-        nama: map["nama"],
-        jenis: map["jenis"],
-        harga: map["harga"]);
+  factory login.fromJson(Map<String, dynamic> map) {
+    return login(username: map["username"], password: map["password"]);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "gambar": gambar,
-      "nama": nama,
-      "jenis": jenis,
-      "harga": harga
-    };
+    return {"username": username, "password": password};
   }
 
   @override
   String toString() {
-    return 'Beranda{id: $id,gambar: $gambar nama: $nama, jenis: $jenis, harga: $harga}';
+    return 'login{username: $username, password: $password}';
   }
 }
 
-List<Beranda> berandaFromJson(String jsonData) {
+List<login> loginFromJson(String jsonData) {
   final data = json.decode(jsonData);
-  return List<Beranda>.from(data.map((item) => Beranda.fromJson(item)));
+  return List<login>.from(data.map((item) => login.fromJson(item)));
 }
 
-String berandaToJson(Beranda data) {
+String loginToJson(login data) {
   final jsonData = data.toJson();
   return json.encode(jsonData);
 }

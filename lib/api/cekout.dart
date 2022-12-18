@@ -1,50 +1,50 @@
 import 'dart:convert';
 
-class Beranda {
+class cekout {
   int id;
-  String gambar;
+  String tanggal;
   String nama;
-  String jenis;
-  int harga;
+  String total;
+  int no_meja;
 
-  Beranda(
+  cekout(
       {this.id = 0,
-      required this.gambar,
+      required this.tanggal,
       required this.nama,
-      required this.jenis,
-      required this.harga});
+      required this.total,
+      required this.no_meja});
 
-  factory Beranda.fromJson(Map<String, dynamic> map) {
-    return Beranda(
+  factory cekout.fromJson(Map<String, dynamic> map) {
+    return cekout(
         id: map["id"],
-        gambar: map["gambar"],
+        tanggal: map["tanggal"],
         nama: map["nama"],
-        jenis: map["jenis"],
-        harga: map["harga"]);
+        total: map["total"],
+        no_meja: map["no_meja"]);
   }
 
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "gambar": gambar,
+      "tanggal": tanggal,
       "nama": nama,
-      "jenis": jenis,
-      "harga": harga
+      "total": total,
+      "no_meja": no_meja
     };
   }
 
   @override
   String toString() {
-    return 'Beranda{id: $id,gambar: $gambar nama: $nama, jenis: $jenis, harga: $harga}';
+    return 'cekout{id: $id, tanggal: $tanggal nama: $nama, total: $total, no_meja: $no_meja}';
   }
 }
 
-List<Beranda> berandaFromJson(String jsonData) {
+List<cekout> cekoutFromJson(String jsonData) {
   final data = json.decode(jsonData);
-  return List<Beranda>.from(data.map((item) => Beranda.fromJson(item)));
+  return List<cekout>.from(data.map((item) => cekout.fromJson(item)));
 }
 
-String berandaToJson(Beranda data) {
+String cekoutToJson(cekout data) {
   final jsonData = data.toJson();
   return json.encode(jsonData);
 }
