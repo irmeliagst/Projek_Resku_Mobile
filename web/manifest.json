@@ -1,6 +1,6 @@
 {
-    "name": "tokoonline",
-    "short_name": "tokoonline",
+    "name": "resku",
+    "short_name": "resku",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
