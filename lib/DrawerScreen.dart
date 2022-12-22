@@ -1,4 +1,5 @@
 // ignore: file_names
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:resku/core.dart';
 import 'package:resku/presentation/login_screen/login_screen.dart';
@@ -7,6 +8,7 @@ class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _DrawerScreenState createState() => _DrawerScreenState();
 }
 

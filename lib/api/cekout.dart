@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+// ignore: camel_case_types
 class cekout {
   int id;
   String tanggal;
   String nama;
   String total;
+  // ignore: non_constant_identifier_names
   int no_meja;
 
   cekout(
@@ -12,6 +14,7 @@ class cekout {
       required this.tanggal,
       required this.nama,
       required this.total,
+      // ignore: non_constant_identifier_names
       required this.no_meja});
 
   factory cekout.fromJson(Map<String, dynamic> map) {

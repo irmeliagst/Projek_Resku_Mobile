@@ -1,20 +1,60 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert';
+
 import 'package:resku/presentation/dashboard_screen/dashboard_screen.dart';
-// ignore: depend_on_referenced_packages
 import 'package:scrollable_table_view/scrollable_table_view.dart';
-import '../proses_screen/proses_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:resku/core.dart';
-import 'package:resku/widgets/custom_button.dart';
+import 'package:http/http.dart' as http;
 
-Widget _buildListView() {
-  return ListView.builder(
-      itemCount: 20,
-      itemBuilder: (BuildContext context, index) {
-        return ListTile(title: Text('Item $index'));
-      });
+// ignore: must_be_immutable
+class ProsesScreen extends StatefulWidget {
+  int? value;
+  ProsesScreen({Key? key, this.value}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
+  _ProsesScreenState createState() => _ProsesScreenState(value);
 }
 
-class ProsesScreen extends StatelessWidget {
+class _ProsesScreenState extends State<ProsesScreen> {
+  int? value;
+  _ProsesScreenState(this.value);
+  Map? data;
+  String? uri;
+  @override
+  // ignore: must_call_super
+  void initState() {
+    var url = "https://reqres.in/api/users/${value.toString()}";
+    _getRefreshDaata(url);
+
+    print("susu +$value");
+  }
+
+  Future<void> _getRefreshDaata(url) async {
+    setState(() {
+      uri = url;
+    });
+    var response = await http.get(Uri.parse(uri.toString()),
+        headers: {"Accept": "application/json"});
+    print(response.body);
+    setState(() {
+      var convertDataToJson = jsonDecode(response.body);
+      data = convertDataToJson['data'];
+    });
+  }
+
+  // ignore: unused_element
+  Widget _buildListTile() {
+    return ListTile(
+      title: Text(
+        data!["first_name"],
+      ),
+      subtitle: Text(data!["email"]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,7 +89,8 @@ class ProsesScreen extends StatelessWidget {
                     right: 25,
                   ),
                   child: Text(
-                    "Transaksi",
+                    // ignore: prefer_interpolation_to_compose_strings
+                    "Transaksi " + data!["first_name"],
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -77,39 +118,61 @@ class ProsesScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                    height: 320,
-                    child: ScrollableTableView(
-                      columns: [
-                        "id_transaksi",
-                        "nama_barang",
-                        "jumlah",
-                        "harga",
-                      ].map((column) {
-                        return TableViewColumn(
-                          label: column,
-                        );
-                      }).toList(),
-                      rows: [
-                        ["PR1000", "jus pisang", "1", "10.000"],
-                        ["PR1000", "nasi goreng", "1", "20.000"],
-                        ["PR1000", "piscok", "1", "8.000"],
-                        ["PR1000", "bakso", "1", "12.000"],
-                        ["PR1000", "karedok", "1", "9.000"],
-                        ["PR1000", "mi goreng", "1", "9.000"],
-                        ["PR1000", "fuyunghai", "1", "19.000"],
-                        ["PR1000", "udang saus mentega", "1", "30.000"],
-                      ].map((record) {
-                        return TableViewRow(
-                          height: 60,
-                          cells: record.map((value) {
-                            return TableViewCell(
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        );
-                      }).toList(),
-                    )),
+                Container(
+                  child: data == null
+                      ? Center(
+                          child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Colors.white),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircularProgressIndicator(),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Loading. . . .",
+                                    style: TextStyle(
+                                      color: ColorConstant.red800,
+                                    ),
+                                  )
+                                ],
+                              )))
+                      : SizedBox(
+                          height: 400,
+                          width: 300,
+                          child: ScrollableTableView(
+                            columns: [
+                              "Nama Barang",
+                              "Jumlah",
+                              "Harga",
+                            ].map((column) {
+                              return TableViewColumn(
+                                label: column,
+                              );
+                            }).toList(),
+                            rows: [
+                              [
+                                data!["first_name"],
+                                data!["first_name"],
+                                data!["first_name"]
+                              ],
+                            ].map((record) {
+                              return TableViewRow(
+                                height: 60,
+                                cells: record.map((value) {
+                                  return TableViewCell(
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              );
+                            }).toList(),
+                          )),
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -274,7 +337,7 @@ class ProsesScreen extends StatelessWidget {
                           child: MaterialButton(
                               minWidth: double.infinity,
                               height: 45.0,
-                              color: const Color.fromARGB(255, 194, 45, 45),
+                              color: ColorConstant.redA700A5,
                               textColor: Colors.white70,
                               onPressed: () {
                                 showDialog(
@@ -283,7 +346,7 @@ class ProsesScreen extends StatelessWidget {
                                     return AlertDialog(
                                       title: const Text(""),
                                       content:
-                                          const Text("transaksi berhasil!"),
+                                          const Text("Transaksi berhasil !"),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
@@ -304,30 +367,6 @@ class ProsesScreen extends StatelessWidget {
                               child: const Text("Bayar")),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: getPadding(
-                      left: 101,
-                      top: 26,
-                      right: 101,
-                      bottom: 7,
-                    ),
-                    child: Text(
-                      "www.myresku.com",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: ColorConstant.gray700,
-                        fontSize: getFontSize(
-                          10,
-                        ),
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                      ),
                     ),
                   ),
                 ),

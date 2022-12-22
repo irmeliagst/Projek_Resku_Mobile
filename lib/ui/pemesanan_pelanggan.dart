@@ -1,42 +1,53 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:resku/core.dart';
-import 'package:flutter/material.dart';
-import 'package:resku/presentation/dashboard_screen/dashboard_screen.dart';
+import 'package:resku/module/home_screens.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: use_key_in_widget_constructors, must_be_immutable
-class LoginScreen extends StatefulWidget {
+// ignore: use_build_context_synchronously
+class PemesananPelanggan extends StatefulWidget {
+  const PemesananPelanggan({super.key});
+
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<PemesananPelanggan> createState() => _PemesananPelangganState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final usernameController = TextEditingController();
+class _PemesananPelangganState extends State<PemesananPelanggan> {
+  final _namaController = TextEditingController();
+  List<String> listMeja = ["A1", "A2", "A3", "A4", "A5", "A6"];
 
-  final passwordController = TextEditingController();
+  String nMeja = "A1";
+  int? nilaiMeja;
 
-  // Future<List<login>> getLogin() async {
-  void login(String username, password) async {
+  void pilihmeja(String value) {
+    setState(() {
+      nMeja = value;
+    });
+  }
+
+  void pesan(String nama, kodeMeja) async {
     try {
       Response response = await post(
-          Uri.parse("http://localhost/resku/api/petugas/login.php"),
+          Uri.parse("http://localhost/resku/api/user/pemesanan.php"),
           body: {
-            'username': username,
-            'password': password,
+            'nama': nama,
+            'kode_meja': kodeMeja,
           });
       if (response.statusCode == 200) {
+        // Obtain shared preferences.
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('nama_pemesan', nama);
+        print('true');
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreenView(nama: nama)),
         );
-        // ignore: avoid_print
-        print('berhasil');
       } else {
-        // ignore: avoid_print
         print('failed');
       }
     } catch (e) {
-      // ignore: avoid_print
-      print(e.toString());
+      print(e);
     }
   }
 
@@ -118,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               right: 26,
                             ),
                             child: Text(
-                              "Login Petugas ",
+                              "Menu Pemesanan ",
                               maxLines: null,
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -144,9 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 margin: const EdgeInsets.only(
                                     left: 15.0, right: 10),
                                 child: TextFormField(
-                                  controller: usernameController,
+                                  controller: _namaController,
                                   decoration: const InputDecoration(
-                                      hintText: "Masukkan username",
+                                      hintText: "Masukkan nama anda",
                                       fillColor: Colors.white),
                                   style: TextStyle(
                                     color: ColorConstant.gray700,
@@ -172,20 +183,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: const EdgeInsets.all(10),
                                 margin: const EdgeInsets.only(
                                     left: 15.0, right: 10),
-                                child: TextFormField(
-                                  controller: passwordController,
-                                  obscureText: true,
-                                  decoration: const InputDecoration(
-                                      hintText: "Masukkan password",
-                                      fillColor: Colors.white),
-                                  style: TextStyle(
-                                    color: ColorConstant.gray700,
-                                    fontSize: getFontSize(
-                                      10,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                child: DropdownButton(
+                                  value: nMeja,
+                                  onChanged: (String? value) {
+                                    pilihmeja(value ?? "");
+                                    nilaiMeja = listMeja.indexOf(value ?? "");
+                                  },
+                                  items: listMeja.map((String value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ),
@@ -202,42 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(15)),
                               textColor: Colors.white,
                               onPressed: () {
-                                login(usernameController.text.toString(),
-                                    passwordController.text.toString());
-                                // usernameController.text;
-                                // String password = passwordController.text;
-                                // if (username == "" && password == "") {
-                                //   // ignore: avoid_print
-                                //   print("username dan password benar");
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       const SnackBar(
-                                //           content: Text(
-                                //               "username dan password benar")));
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const DashboardScreen()),
-                                //   );
-                                // } else {
-                                //   // ignore: avoid_print
-                                //   print("username dan password salah");
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       const SnackBar(
-                                //           content: Text(
-                                //               "username dan password salah")));
-                                // }
-                                // ignore: avoid_print
-                                // print(
-                                //     "data username : $username data paswword : $password");
-                                // // ignore: avoid_print
-                                // print("tombol diklik");
+                                pesan(_namaController.text, nMeja);
                               },
-                              // onPressed: () {
-                              //   login(usernameController.text.toString(),
-                              //       passwordController.text.toString());
-                              // },
-                              child: const Text("Log In"),
+                              child: const Text("Pilih Menu"),
                             ),
                           ),
                           Align(

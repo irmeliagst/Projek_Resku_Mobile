@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
+// ignore: constant_identifier_names
 const num DESIGN_WIDTH = 320;
+// ignore: constant_identifier_names
 const num DESIGN_HEIGHT = 568;
+// ignore: constant_identifier_names
 const num DESIGN_STATUS_BAR = 0;
 
 ///This method is used to get device viewport width.

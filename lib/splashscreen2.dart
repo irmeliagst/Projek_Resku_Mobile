@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:resku/core.dart';
+import 'package:resku/ui/pemesanan_pelanggan.dart';
 //import 'package:skincare_app/users/authentication/login_screen.dart';
 
 class SplashScreenPage extends StatefulWidget {
-  const SplashScreenPage({Key? key}) : super(key: key);
+  const SplashScreenPage({Key? key, required String nama}) : super(key: key);
 
   @override
   _SplashScreenPageState createState() => _SplashScreenPageState();
@@ -25,7 +26,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     return Timer(durasiSplash, () {
       //pindah ke halaman home
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return const HomeScreenView();
+        return const PemesananPelanggan();
       }));
     });
   }
