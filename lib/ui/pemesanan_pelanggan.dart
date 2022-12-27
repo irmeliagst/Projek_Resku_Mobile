@@ -25,7 +25,7 @@ class _PemesananPelangganState extends State<PemesananPelanggan> {
     });
   }
 
-  void pesan(String nama, kodeMeja) async {
+  void pesan(String nama, String kodeMeja) async {
     try {
       Response response = await post(
           Uri.parse("http://localhost/resku/api/user/pemesanan.php"),
@@ -38,6 +38,7 @@ class _PemesananPelangganState extends State<PemesananPelanggan> {
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('nama_pemesan', nama);
+        prefs.setString('kodeMeja', kodeMeja);
         print('true');
         Navigator.push(
           context,
@@ -124,7 +125,7 @@ class _PemesananPelangganState extends State<PemesananPelanggan> {
                               174.00,
                             ),
                             margin: getMargin(
-                              left: 26,
+                              left: 60,
                               top: 40,
                               right: 26,
                             ),
@@ -171,10 +172,33 @@ class _PemesananPelangganState extends State<PemesananPelanggan> {
                               ),
                             ),
                           ),
+                          Container(
+                            width: getHorizontalSize(
+                              174.00,
+                            ),
+                            margin: getMargin(
+                              left: 44,
+                              top: 45,
+                              right: 26,
+                            ),
+                            child: Text(
+                              "Pilih meja dengan sesuai ",
+                              maxLines: null,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.red800,
+                                fontSize: getFontSize(
+                                  12,
+                                ),
+                                fontFamily: 'Happy Monkey',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: getPadding(
                               left: 28,
-                              top: 30,
+                              top: 5,
                               right: 28,
                             ),
                             child: Padding(
@@ -211,7 +235,17 @@ class _PemesananPelangganState extends State<PemesananPelanggan> {
                                   borderRadius: BorderRadius.circular(15)),
                               textColor: Colors.white,
                               onPressed: () {
-                                pesan(_namaController.text, nMeja);
+                                if (_namaController.text.isEmpty) {
+                                  print("Mohon Isikan Nama");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text("Mohon Isikan Nama")));
+                                } else {
+                                  pesan(_namaController.text, nMeja);
+                                  print("Silahkan Pilih Menu");
+                                  ScaffoldMessenger.of(context);
+                                  (const Text("Silahkan Pilih Menu.."));
+                                }
                               },
                               child: const Text("Pilih Menu"),
                             ),

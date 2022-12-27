@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:resku/module/cart_screens.dart';
 import 'package:resku/module/detail_product_screen.dart';
-import 'package:resku/presentation/login_screen/login_screen.dart';
+import 'package:resku/presentation/login_screen.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreenView extends StatefulWidget {
@@ -102,7 +102,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
           },
           icon: const Icon(

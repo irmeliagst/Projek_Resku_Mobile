@@ -2,57 +2,90 @@
 
 import 'dart:convert';
 
-import 'package:resku/presentation/dashboard_screen/dashboard_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:resku/presentation/beranda_petugas.dart';
+import 'package:resku/ui/pemesanan_pelanggan.dart';
 import 'package:scrollable_table_view/scrollable_table_view.dart';
 import 'package:flutter/material.dart';
 import 'package:resku/core.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
-class ProsesScreen extends StatefulWidget {
-  int? value;
-  ProsesScreen({Key? key, this.value}) : super(key: key);
+class DetailTransaksi extends StatefulWidget {
+  late String nama;
+  DetailTransaksi({Key? key, required this.nama}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _ProsesScreenState createState() => _ProsesScreenState(value);
+  _DetailTransaksiState createState() => _DetailTransaksiState();
 }
 
-class _ProsesScreenState extends State<ProsesScreen> {
-  int? value;
-  _ProsesScreenState(this.value);
-  Map? data;
-  String? uri;
+class _DetailTransaksiState extends State<DetailTransaksi> {
+  late Future<List<dynamic>> data;
+  late String? jumlah = "";
+  // int _counter = 0;
   @override
-  // ignore: must_call_super
   void initState() {
-    var url = "https://reqres.in/api/users/${value.toString()}";
-    _getRefreshDaata(url);
-
-    print("susu +$value");
+    super.initState();
+    data = fetchData();
+    fetchHarga();
   }
 
-  Future<void> _getRefreshDaata(url) async {
-    setState(() {
-      uri = url;
-    });
-    var response = await http.get(Uri.parse(uri.toString()),
-        headers: {"Accept": "application/json"});
-    print(response.body);
-    setState(() {
-      var convertDataToJson = jsonDecode(response.body);
-      data = convertDataToJson['data'];
-    });
+  _checkout() async {
+    final response = await http.get(Uri.parse(
+        "http://localhost/resku/api/petugas/cekout_petugas.php?nama=${widget.nama}"));
+    // print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PemesananPelanggan()),
+      );
+      return json.decode(response.body)['message'];
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
   }
 
-  // ignore: unused_element
-  Widget _buildListTile() {
-    return ListTile(
-      title: Text(
-        data!["first_name"],
-      ),
-      subtitle: Text(data!["email"]),
-    );
+  Future<String> fetchHarga() async {
+    final response = await http.get(Uri.parse(
+        "http://localhost/resku/api/petugas/daftar_pesan_petugas.php?nama=${widget.nama}"));
+    // print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body)['data'];
+      // return jsonResponse.map((data) => {}).toList();
+      print(json.decode(response.body)['message']['jumlah']);
+      // print(jsonResponse.map((data) => Menu.fromJson(data)).toList());
+      // return jsonResponse.map((data) => Menu.fromJson(data)).toList();
+      setState(() {
+        jumlah = json.decode(response.body)['message']['jumlah'];
+      });
+      return json.decode(response.body)['message']['jumlah'];
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    final response = await http.get(Uri.parse(
+        "http://localhost/resku/api/petugas/daftar_pesan_petugas.php?nama=${widget.nama}"));
+    // print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body)['data'];
+      // return jsonResponse.map((data) => {}).toList();
+      print(json.decode(response.body)['message']['jumlah']);
+      // print(jsonResponse.map((data) => Menu.fromJson(data)).toList());
+      // return jsonResponse.map((data) => Menu.fromJson(data)).toList();
+      // setState(() {
+      //   jumlah = json.decode(response.body)['message']['jumlah'];
+      // });
+      return jsonResponse;
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
   }
 
   @override
@@ -61,7 +94,14 @@ class _ProsesScreenState extends State<ProsesScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: ColorConstant.redA700A5,
-          title: const Text('Pesanan'),
+          title: Text(
+            "Detail Transaksi",
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -69,7 +109,7 @@ class _ProsesScreenState extends State<ProsesScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const DashboardScreen()),
+                    builder: (context) => const BerandaPetugasView()),
               );
             }),
           ),
@@ -89,8 +129,7 @@ class _ProsesScreenState extends State<ProsesScreen> {
                     right: 25,
                   ),
                   child: Text(
-                    // ignore: prefer_interpolation_to_compose_strings
-                    "Transaksi " + data!["first_name"],
+                    "Atas nama : ${widget.nama}",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -147,7 +186,7 @@ class _ProsesScreenState extends State<ProsesScreen> {
                           width: 300,
                           child: ScrollableTableView(
                             columns: [
-                              "Nama Barang",
+                              "Nama Menu",
                               "Jumlah",
                               "Harga",
                             ].map((column) {
@@ -157,9 +196,9 @@ class _ProsesScreenState extends State<ProsesScreen> {
                             }).toList(),
                             rows: [
                               [
-                                data!["first_name"],
-                                data!["first_name"],
-                                data!["first_name"]
+                                // data["first_name"],
+                                // data["first_name"],
+                                // data["first_name"]
                               ],
                             ].map((record) {
                               return TableViewRow(
@@ -354,7 +393,7 @@ class _ProsesScreenState extends State<ProsesScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const DashboardScreen()),
+                                                      const BerandaPetugasView()),
                                             );
                                           },
                                           child: const Text("Okay"),

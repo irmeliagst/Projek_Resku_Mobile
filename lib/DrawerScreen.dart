@@ -1,8 +1,11 @@
 // ignore: file_names
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:resku/core.dart';
-import 'package:resku/presentation/login_screen/login_screen.dart';
+import 'package:resku/presentation/login_screen.dart';
+import 'package:http/http.dart' as http;
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -13,6 +16,32 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  late Future<List<dynamic>> data;
+  late String? jumlahPesanan = "";
+
+  @override
+  void initState() {
+    super.initState();
+    data = fetchData();
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    final response = await http
+        .get(Uri.parse("http://localhost/resku/api/user/beranda.php"));
+    // print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body)['data'];
+      // return jsonResponse.map((data) => {}).toList();
+      print(jsonResponse);
+      // print(jsonResponse.map((data) => Menu.fromJson(data)).toList());
+      // return jsonResponse.map((data) => Menu.fromJson(data)).toList();
+      return jsonResponse;
+    } else {
+      throw Exception('Unexpected error occured!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -68,7 +97,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             color: ColorConstant.red800Bc,
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                                  builder: (context) => const LoginScreen()));
                             },
                             textColor: ColorConstant.whiteA700,
                             child: const Text("YA"),

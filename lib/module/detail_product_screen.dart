@@ -290,7 +290,13 @@ class _DetailProductViewState extends State<DetailProductView> {
                 ),
                 onPressed: () {
                   // Navigator.pop(context);
-                  _tambah(_counter);
+                  if (_counter == 0) {
+                    print("Isi Kuantitas");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Isi Kuantitas")));
+                  } else {
+                    _tambah(_counter);
+                  }
                 },
                 child: const Text("pilih"),
               ),

@@ -1,42 +1,46 @@
+// ignore_for_file: unused_local_variable, duplicate_ignore
+
 import 'package:http/http.dart';
 import 'package:resku/core.dart';
 import 'package:flutter/material.dart';
-import 'package:resku/presentation/dashboard_screen/dashboard_screen.dart';
+import 'package:resku/presentation/beranda_petugas.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
-
   final passwordController = TextEditingController();
 
   // Future<List<login>> getLogin() async {
-  void login(String username, password) async {
+  void login(String username, String password) async {
     try {
       Response response = await post(
-          Uri.parse("http://localhost/resku/api/petugas/login.php"),
+          Uri.parse("http://localhost/resku/api/petugas/login_petugas.php"),
           body: {
             'username': username,
             'password': password,
           });
-      if (response.statusCode == 200) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
-        );
-        // ignore: avoid_print
-        print('berhasil');
-      } else {
-        // ignore: avoid_print
-        print('failed');
-      }
+      // if (response.statusCode == 200) {
+      //   // ignore: use_build_context_synchronously
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      //   );
+      //   // ignore: avoid_print
+      //   print('berhasil');
+      // } else {
+      //   // ignore: avoid_print
+      //   print('failed');
+      // }
     } catch (e) {
       // ignore: avoid_print
-      print(e.toString());
+
     }
   }
 
@@ -145,6 +149,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     left: 15.0, right: 10),
                                 child: TextFormField(
                                   controller: usernameController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Masukan Username Anda";
+                                    }
+                                    return null;
+                                  },
                                   decoration: const InputDecoration(
                                       hintText: "Masukkan username",
                                       fillColor: Colors.white),
@@ -174,6 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     left: 15.0, right: 10),
                                 child: TextFormField(
                                   controller: passwordController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Masukan Password Anda";
+                                    }
+                                    return null;
+                                  },
                                   obscureText: true,
                                   decoration: const InputDecoration(
                                       hintText: "Masukkan password",
@@ -201,42 +217,61 @@ class _LoginScreenState extends State<LoginScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)),
                               textColor: Colors.white,
-                              onPressed: () {
-                                login(usernameController.text.toString(),
-                                    passwordController.text.toString());
-                                // usernameController.text;
-                                // String password = passwordController.text;
-                                // if (username == "" && password == "") {
-                                //   // ignore: avoid_print
-                                //   print("username dan password benar");
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       const SnackBar(
-                                //           content: Text(
-                                //               "username dan password benar")));
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const DashboardScreen()),
-                                //   );
-                                // } else {
-                                //   // ignore: avoid_print
-                                //   print("username dan password salah");
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       const SnackBar(
-                                //           content: Text(
-                                //               "username dan password salah")));
-                                // }
-                                // ignore: avoid_print
-                                // print(
-                                //     "data username : $username data paswword : $password");
-                                // // ignore: avoid_print
-                                // print("tombol diklik");
-                              },
+                              // ignore: duplicate_ignore
                               // onPressed: () {
-                              //   login(usernameController.text.toString(),
-                              //       passwordController.text.toString());
+                              //   // login(usernameController.text.toString(),
+                              //   //     passwordController.text.toString()
+                              //   //     password: '', username: "");
+                              //   // ignore: unused_local_variable
+                              //   String username = usernameController.text;
+                              //   String password = passwordController.text;
+                              //   if (usernameController.text.isEmpty &&
+                              //       passwordController.text.isEmpty) {
+                              //     // ignore: avoid_print
+                              //     print("username dan password benar");
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //         const SnackBar(
+                              //             content: Text(
+                              //                 "username dan password benar")));
+                              //     Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               const DashboardScreen()),
+                              //     );
+                              //   } else {
+                              //     // ignore: avoid_print
+                              //     print("username dan password salah");
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //         const SnackBar(
+                              //             content: Text(
+                              //                 "username dan password salah")));
+                              //   }
                               // },
+                              onPressed: () {
+                                if (usernameController.text.isEmpty &&
+                                    passwordController.text.isEmpty) {
+                                  // ignore: avoid_print
+                                  print("username dan password salah");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "username dan password salah")));
+                                } else {
+                                  // ignore: avoid_print
+                                  login(usernameController.text,
+                                      passwordController.text);
+                                  print("username dan password benar");
+                                  ScaffoldMessenger.of(context);
+                                  (const Text("username dan password benar"));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BerandaPetugasView()),
+                                  );
+                                }
+                              },
                               child: const Text("Log In"),
                             ),
                           ),

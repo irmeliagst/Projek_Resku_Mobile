@@ -1,19 +1,19 @@
 import 'dart:convert';
-
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:resku/ui/pemesanan_pelanggan.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 
-class CardScreenView extends StatefulWidget {
+// ignore: must_be_immutable
+class DetailPesanan extends StatefulWidget {
   late String nama;
-  CardScreenView({Key? key, required this.nama}) : super(key: key);
-
+  DetailPesanan({Key? key, required this.nama}) : super(key: key);
   @override
-  State<CardScreenView> createState() => _CardScreenViewState();
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
+  _DetailPesananState createState() => _DetailPesananState();
 }
 
-class _CardScreenViewState extends State<CardScreenView> {
+class _DetailPesananState extends State<DetailPesanan> {
   late Future<List<dynamic>> data;
   late String? jumlah = "";
   // int _counter = 0;
@@ -24,21 +24,9 @@ class _CardScreenViewState extends State<CardScreenView> {
     fetchHarga();
   }
 
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
-  // Future<List<dynamic>> _fecthDataUsers() async {
-  //   var result =
-  //       await http.get(Uri.parse("https://reqres.in/api/users?per_page=15"));
-  //   return json.decode(result.body)['data'];
-  // }
-
   _checkout() async {
     final response = await http.get(Uri.parse(
-        "http://localhost/resku/api/user/checkout.php?nama=${widget.nama}"));
+        "http://localhost/resku/api/petugas/cekout_petugas.php?nama=${widget.nama}"));
     // print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -55,7 +43,7 @@ class _CardScreenViewState extends State<CardScreenView> {
 
   Future<String> fetchHarga() async {
     final response = await http.get(Uri.parse(
-        "http://localhost/resku/api/user/daftar_pesanan.php?nama=${widget.nama}"));
+        "http://localhost/resku/api/petugas/daftar_pesan_petugas.php?nama=${widget.nama}"));
     // print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -75,7 +63,7 @@ class _CardScreenViewState extends State<CardScreenView> {
 
   Future<List<dynamic>> fetchData() async {
     final response = await http.get(Uri.parse(
-        "http://localhost/resku/api/user/daftar_pesanan.php?nama=${widget.nama}"));
+        "http://localhost/resku/api/petugas/daftar_pesan_petugas.php?nama=${widget.nama}"));
     // print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -102,7 +90,7 @@ class _CardScreenViewState extends State<CardScreenView> {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "Keranjang belanjamu",
+          "Detail Pesanan : ${widget.nama}",
           style: GoogleFonts.poppins(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -226,122 +214,6 @@ class _CardScreenViewState extends State<CardScreenView> {
                           }
                         },
                       ),
-                      // ListView.builder(
-                      //   itemCount: GroceryServices.products.length,
-                      //   itemBuilder: (context, index) {
-                      //     var item = GroceryServices.products[index];
-                      // return SizedBox(
-                      //   height: 125.0,
-                      //   width: 335,
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         height: 90.0,
-                      //         width: 90,
-                      //         decoration: BoxDecoration(
-                      //           image: DecorationImage(
-                      //             image: NetworkImage(
-                      //               "${item['photo']}",
-                      //             ),
-                      //             fit: BoxFit.cover,
-                      //           ),
-                      //           borderRadius: const BorderRadius.all(
-                      //             Radius.circular(
-                      //               16.0,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       const SizedBox(
-                      //         width: 15.0,
-                      //       ),
-                      //       SizedBox(
-                      //         width: 120,
-                      //         child: Column(
-                      //           crossAxisAlignment:
-                      //               CrossAxisAlignment.start,
-                      //           mainAxisAlignment: MainAxisAlignment.center,
-                      //           children: [
-                      //             Text(
-                      //               "${item['nama_menu']}",
-                      //               style: GoogleFonts.poppins(
-                      //                 fontSize: 14,
-                      //                 fontWeight: FontWeight.w600,
-                      //                 color: Colors.black,
-                      //               ),
-                      //             ),
-                      //             Text(
-                      //               "${item['harga']}",
-                      //               style: GoogleFonts.poppins(
-                      //                 fontSize: 14,
-                      //                 fontWeight: FontWeight.w600,
-                      //                 color: const Color.fromARGB(
-                      //                     255, 168, 2, 2),
-                      //               ),
-                      //             ),
-                      //             Row(
-                      //               children: [
-                      //                 Container(
-                      //                   height: 25.92,
-                      //                   width: 25.92,
-                      //                   decoration: BoxDecoration(
-                      //                     color: Colors.white,
-                      //                     borderRadius:
-                      //                         const BorderRadius.all(
-                      //                       Radius.circular(
-                      //                         10.0,
-                      //                       ),
-                      //                     ),
-                      //                     border: Border.all(
-                      //                       width: 1.0,
-                      //                       color: const Color(0xffC0C8C7),
-                      //                     ),
-                      //                   ),
-                      //                   child: const Icon(
-                      //                     Icons.remove,
-                      //                     size: 18.0,
-                      //                   ),
-                      //                 ),
-                      //                 Container(
-                      //                   margin: const EdgeInsets.symmetric(
-                      //                       horizontal: 13.5),
-                      //                   child: Text(
-                      //                     "1",
-                      //                     style: GoogleFonts.poppins(
-                      //                       fontSize: 12,
-                      //                       fontWeight: FontWeight.w600,
-                      //                       color: Colors.black,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //                 Container(
-                      //                   height: 25.92,
-                      //                   width: 25.92,
-                      //                   decoration: const BoxDecoration(
-                      //                     color: Color.fromARGB(
-                      //                         255, 171, 6, 6),
-                      //                     borderRadius: BorderRadius.all(
-                      //                       Radius.circular(
-                      //                         10.0,
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                   child: const Icon(
-                      //                     Icons.add,
-                      //                     size: 18.0,
-                      //                     color: Colors.white,
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // );
-                      //   },
-                      // ),
                     ),
                   ],
                 ),
@@ -396,83 +268,9 @@ class _CardScreenViewState extends State<CardScreenView> {
                     ),
                   ),
                   onPressed: () {
-                    // _checkout();
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text(""),
-                          content: const Text("Berhasil Pesan Menu !"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                _checkout();
-                              },
-                              child: const Text("Okay"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    _checkout();
                   },
-                  // child: Column(
-                  //   children: [
-                  //     Container(
-                  //       height: 108.0,
-                  //       width: 108,
-                  //       margin: const EdgeInsets.only(
-                  //           top: 61.0, left: 90, right: 90, bottom: 45),
-                  //       decoration: const BoxDecoration(
-                  //         borderRadius: BorderRadius.all(
-                  //           Radius.circular(
-                  //             16.0,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Text("Berhasil melakukan pemesanan",
-                  //         style: GoogleFonts.poppins(
-                  //             fontSize: 14,
-                  //             color: Colors.black,
-                  //             fontWeight: FontWeight.w500)),
-                  //     const SizedBox(
-                  //       height: 25.0,
-                  //     ),
-                  //     Text("Mohon ditunggu",
-                  //         textAlign: TextAlign.center,
-                  //         style: GoogleFonts.poppins(
-                  //             fontSize: 12,
-                  //             color: const Color(0xff516971),
-                  //             fontWeight: FontWeight.w500)),
-                  //     const SizedBox(
-                  //       height: 35.0,
-                  //     ),
-                  //     SizedBox(
-                  //       width: 280,
-                  //       height: 50,
-                  //       child: ElevatedButton(
-                  //           style: ElevatedButton.styleFrom(
-                  //             backgroundColor:
-                  //                 const Color.fromARGB(255, 168, 2, 2),
-                  //             shape: RoundedRectangleBorder(
-                  //               borderRadius:
-                  //                   BorderRadius.circular(50), // <-- Radius
-                  //             ),
-                  //           ),
-                  //           onPressed: () {
-                  //             Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(
-                  //                   builder: (context) => HomeScreenView(
-                  //                         nama: '',
-                  //                       )),
-                  //             );
-                  //           },
-                  //           child: const Text("oke")),
-                  //     ),
-                  //   ],
-                  // ),
-                  child: const Text("Pesan"),
+                  child: const Text("Oke"),
                 ),
               ),
             ],

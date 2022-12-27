@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:resku/module/home_screens.dart';
+import 'package:resku/presentation/login_screen.dart';
 import 'package:resku/splashscreen2.dart';
-import 'package:resku/ui/pemesanan_pelanggan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -33,8 +32,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Resku',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
         ),
-        home: const PemesananPelanggan());
+        home: const LoginScreen());
   }
 }
